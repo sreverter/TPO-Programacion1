@@ -14,6 +14,8 @@ categorias = [
     [5, "Frutas y Verduras"]
 ]
 
+# Referencia de productos
+#ID, ID_CATEGORIA, NOMBRE, ID_PROVEEDOR, STOCK, PRECIO
 productos = [
     [1, 1, "Leche entera 1L", 1, 500, 1.20],
     [2, 2, "Pechuga de pollo 1kg", 2, 200, 4.50],
