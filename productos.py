@@ -1,6 +1,8 @@
 import data as data
 import funciones as f
 
+#guzmangustavo@outlook.com
+
 data_productos = data.productos
 descripcion_columnas = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO"]
 que_hacer = ""

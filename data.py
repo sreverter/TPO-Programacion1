@@ -5,6 +5,7 @@ proveedores = [
     [4, "Central Proveeduría", 150, 12],
     [5, "Global Import", 80, 15]
 ]
+# agregar cuit a proveedres
 
 categorias = [
     [1, "Lácteos"],
