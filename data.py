@@ -1,10 +1,16 @@
 proveedores = [
-    [1, "Distribuidora Sur", 100, 7],
-    [2, "Comercial Norte", 50, 5],
-    [3, "Mayorista Express", 200, 10],
-    [4, "Central Proveeduría", 150, 12],
-    [5, "Global Import", 80, 15]
+    [1, "Distribuidora Sur", 100, 7, "20-12345678-3"],
+    [2, "Comercial Norte", 50, 5, "23-23456789-1"],
+    [3, "Mayorista Express", 200, 10, "27-34567890-4"],
+    [4, "Central Proveeduría", 150, 12, "20-45678901-2"],
+    [5, "Global Import", 80, 15, "23-56789012-7"],
+    [6, "Mercado Federal", 120, 8, "27-67890123-5"],
+    [7, "Alimentos del Centro", 90, 6, "20-78901234-8"],
+    [8, "Distribuidora Andina", 300, 20, "23-89012345-6"],
+    [9, "Proveeduría Pampeana", 110, 9, "27-90123456-1"],
+    [10, "Comercial Atlántico", 70, 4, "20-11223344-0"]
 ]
+
 # agregar cuit a proveedres
 
 categorias = [
