@@ -7,7 +7,7 @@ data_productos = data.productos
 descripcion_columnas = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO"]
 que_hacer = ""
 while que_hacer != "5":
-    que_hacer = input("¿Qué desea hacer? (1: Ver productos, 2: Buscar producto, 3: Agregar producto, 4: Eliminar producto, 5: Salir): ")
+    que_hacer = input("¿Qué desea hacer?\n(1: Ver productos, 2: Buscar producto, 3: Agregar producto, 4: Eliminar producto, 5: Salir):\n")
     if que_hacer == "1":
         print(descripcion_columnas)
         for fila in data_productos:
@@ -38,21 +38,3 @@ while que_hacer != "5":
         print("Saliendo del programa.")
 
 
-# agrega_producto = input("¿Desea agregar un nuevo producto? (s/n): ").lower()
-# if agrega_producto == "s":
-#     data_productos = f.agregar_producto(data_productos)
-#     print(descripcion_columnas)
-#     for fila in data_productos:
-#         print(fila)
-# else: 
-#     print("No se agregó ningún producto nuevo.")
-# eliminar_producto = input("¿Desea eliminar un producto? (s/n): ").lower()
-# if eliminar_producto == "s":
-#     id_producto_eliminar = int(input("Ingrese el ID del producto a eliminar: "))
-#     producto_a_eliminar = f.buscar_id(data_productos, id_producto_eliminar)
-#     if producto_a_eliminar:
-#         data_productos.remove(producto_a_eliminar)
-#         print(f"Producto con ID {id_producto_eliminar} eliminado.")
-#         print(descripcion_columnas)
-#         for fila in data_productos:
-#             print(fila)
