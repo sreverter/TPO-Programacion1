@@ -3,7 +3,7 @@ import funciones as f
 import data as data
 
 def proveedores(matriz):
-    descripcion_data = ["id", "nombre proveedor", "venta minima", "plazo de entrega"]
+    descripcion_data = ["id", "nombre proveedor", "venta minima", "plazo de entrega", "CUIT"]
     print("Lista de Proveedores:")
     print(descripcion_data)
     for fila in matriz:
@@ -24,3 +24,6 @@ if desea_modificar == "s":
         proveedor_a_modificar[2] = nueva_venta_minima
         proveedor_a_modificar[3] = nuevo_plazo_entrega 
         print("Proveedor modificado:", proveedor_a_modificar)
+        
+        
+def modificar_proveedor(id_proveedor, proveedores_data)

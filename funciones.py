@@ -18,7 +18,7 @@ def buscar_id(matriz, id_buscar):
     for fila in matriz:
         if fila[0] == id_buscar:
             return fila
-    return None
+    return None #por que el none?
 
 def agregar_producto(matriz):
     nueva_fila = []
@@ -31,3 +31,21 @@ def agregar_producto(matriz):
     matriz.append(nueva_fila)
     
     return matriz
+
+
+def mostrar_tabla(matriz, columnas):
+    print(columnas)
+    for fila in matriz:
+        print(fila)
+
+def desactivar_registro(matriz, id_desactivar):
+    fila = buscar_id(matriz, id_desactivar)
+    desactivado = False
+    if fila:
+        fila[-1] = False 
+        desactivado = True
+    if desactivado:
+        print("El registro ha sido desactivado correctamente.") #no lo hice con producto en particular para poder usar la funcion con cualquiera de las entidades
+    else:
+        print("El registro no ha podido borrarse debido a un error. Reintentar")
+    return desactivado
