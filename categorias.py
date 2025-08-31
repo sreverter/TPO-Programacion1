@@ -1,0 +1,1 @@
+# creo la entidad y la dejo vacia por si la llegamos a necesitar en un futuro
