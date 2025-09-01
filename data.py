@@ -36,3 +36,22 @@ usuarios = [
     [2, "empleado1", "abcd", "empleado"],
     [3, "empleado2", "5678", "empleado"]
 ]
+
+#Agregar tabla de pedidos a proveedores. (Id de proveedor, id de producto, precio, tiempo de entrega, cantidad)
+pedidos_proveedores = [
+    [1, 1, 1.15, 5, 100],
+    [2, 2, 4.40, 7, 50],
+    [3, 3, 0.75, 3, 200],
+    [4, 4, 1.45, 6, 150],
+    [5, 5, 2.10, 8, 80]
+]
+
+#tabla de inventario (id de producto, cantidad, punto de pedido)
+
+inventario = [
+    [1, 500, 100],
+    [2, 200, 50],
+    [3, 1000, 200],
+    [4, 350, 75],
+    [5, 250, 60]
+]
