@@ -1,8 +1,5 @@
-import data as data
+import data
+# creo la entidad y la dejo vacia por si la llegamos a necesitar en un futuro
 
-data_categorias = data.categorias
-print("Lista de Categorías:")
-descripcion_columnas = ["ID", "NOMBRE"]
-print(descripcion_columnas)
-for fila in data_categorias:
-    print(fila)
+descripcion_columnas = ["ID", "CATEGORIA_NOMBRE"]
+categorias = data.categorias

@@ -1,14 +1,29 @@
 import funciones as f
 import data as data
 
-hacer_matriz = input("¿Desea crear una matriz? (s/n): ").lower()
-descripcion_data = ["id", "nombre proveedor", "venta minima", "plazo de entrega"]
-if hacer_matriz == "s":
-    filas = int(input("Ingrese el número de filas: "))
-    columnas = int(input("Ingrese el número de columnas: "))
-    matriz = f.crear_matriz(filas, columnas)
-    f.llenar_matriz(matriz)
-    print("Matriz creada y llena:")
-    print(descripcion_data)
-    for fila in matriz:
-        print(fila)
+import productos
+import proveedores
+#import categorias
+#import usuarios
+
+def main():
+    while True:
+        print("\n--- Sistema de Inventario ---")
+        opcion = input("1: Productos | 2: Proveedores | 3: Categorías | 4: Usuarios | 5: Salir\nOpción: ")
+
+        if opcion == "1":
+            productos.menu_productos()
+        elif opcion == "2":
+            proveedores.menu_proveedores()
+        elif opcion == "3":
+            print("Gestión de categorías aún no implementada.") #aca podriamos agregar una nueva categoria de productos
+        elif opcion == "4":
+            print("Sistema de usuarios aún no implementado.") #aca podriamos administrar a los usuarios (no se si es necesario, depende como lo implementemos)
+        elif opcion == "5":
+            print("Saliendo...")
+            break
+        else:
+            print("Opción inválida.")
+
+if __name__ == "__main__":
+    main()

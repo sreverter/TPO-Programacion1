@@ -1,29 +1,28 @@
-#archivo de CRUD proveedores
+import data
 import funciones as f
-import data as data
 
-def proveedores(matriz):
-    descripcion_data = ["id", "nombre proveedor", "venta minima", "plazo de entrega", "CUIT"]
-    print("Lista de Proveedores:")
-    print(descripcion_data)
-    for fila in matriz:
-        print(fila)
+descripcion_columnas = ["ID", "NOMBRE", "VENTA_MINIMA", "PLAZO_ENTREGA", "CUIT", "ACTIVO"]
+proveedores = data.proveedores
 
-proveedores_data = data.proveedores
-proveedores(proveedores_data)
-desea_modificar = input("¿Desea modificar la matriz? (s/n): ").lower()
-if desea_modificar == "s":
-    cual_modifica = int(input("Ingrese el ID del proveedor a modificar: "))
-    proveedor_a_modificar = f.buscar_id(proveedores_data, cual_modifica)
-    if proveedor_a_modificar:
-        print("Proveedor encontrado:", proveedor_a_modificar)
-        nuevo_nombre = input("Ingrese el nuevo nombre del proveedor: ")
-        nueva_venta_minima = int(input("Ingrese la nueva venta mínima: "))
-        nuevo_plazo_entrega = int(input("Ingrese el nuevo plazo de entrega: "))
-        proveedor_a_modificar[1] = nuevo_nombre
-        proveedor_a_modificar[2] = nueva_venta_minima
-        proveedor_a_modificar[3] = nuevo_plazo_entrega 
-        print("Proveedor modificado:", proveedor_a_modificar)
-        
-        
-def modificar_proveedor(id_proveedor, proveedores_data)
+def menu_proveedores():
+    while True:
+        print("\n--- Gestión de Proveedores ---")
+        opcion = input("1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir\nOpción: ")
+
+        if opcion == "1":
+            f.mostrar_tabla(proveedores, descripcion_columnas)
+        elif opcion == "2":
+            id_buscar = int(input("Ingrese ID: "))
+            print(f.buscar_id(proveedores, id_buscar))
+        elif opcion == "3":
+            f.agregar_registro(proveedores, descripcion_columnas)
+        elif opcion == "4":
+            id_modificar = int(input("Ingrese ID: "))
+            fila = f.buscar_id(proveedores, id_modificar)
+            if fila:
+                for i in range(1, len(descripcion_columnas)):
+                    fila[i] = input(f"Nuevo valor para {descripcion_columnas[i]} ({fila[i]}): ") or fila[i]
+            else:
+                print("Proveedor no encontrado.")
+        elif opcion == "5":
+            break

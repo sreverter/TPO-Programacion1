@@ -1,51 +1,56 @@
-import random 
+import random
+import data as data
 
-filas = 3
-columnas = 4
-
-def crear_matriz(filas, columnas):
-    matriz = [[0]*columnas for rellenar in range(filas)]
-    return matriz
-
-def llenar_matriz(matriz):
-    filas = len(matriz)
-    columnas = len(matriz[0])
-    for i in range(filas):
-        for j in range(columnas):
-            matriz[i][j] = int(input(f"Ingrese el valor para la posición [{i}][{j}]: "))
 
 def buscar_id(matriz, id_buscar):
     for fila in matriz:
         if fila[0] == id_buscar:
             return fila
-    return None #por que el none?
-
-def agregar_producto(matriz):
-    nueva_fila = []
-    nueva_fila.append(matriz[-1][0] + 1)  # Asignar un nuevo ID
-    nueva_fila.append(input("Ingrese el ID de categoría: "))
-    nueva_fila.append(input("Ingrese el nombre del producto: "))
-    nueva_fila.append(input("Ingrese el ID del proveedor: "))
-    nueva_fila.append(int(input("Ingrese el stock: ")))
-    nueva_fila.append(float(input("Ingrese el precio: ")))
-    matriz.append(nueva_fila)
-    
-    return matriz
-
+    return None
 
 def mostrar_tabla(matriz, columnas):
     print(columnas)
     for fila in matriz:
         print(fila)
 
+
 def desactivar_registro(matriz, id_desactivar):
     fila = buscar_id(matriz, id_desactivar)
-    desactivado = False
     if fila:
-        fila[-1] = False 
-        desactivado = True
-    if desactivado:
-        print("El registro ha sido desactivado correctamente.") #no lo hice con producto en particular para poder usar la funcion con cualquiera de las entidades
+        fila[-1] = False
+        print("Registro desactivado correctamente.")
+        return True
     else:
-        print("El registro no ha podido borrarse debido a un error. Reintentar")
-    return desactivado
+        print("No se encontró el registro.")
+        return False
+
+def agregar_producto(matriz_productos):
+    nuevo_producto = [matriz_productos[-1][0] + 1 if matriz_productos else 1]
+
+    nombre_producto = input("Ingrese el nombre del producto: ")
+    nuevo_producto.append(nombre_producto)
+    nombre_proveedor = input("Ingrese el nombre del proveedor: ")
+    proveedor_id = buscar_proveedor(nombre_proveedor)
+    if proveedor_id is None:
+        print("Proveedor no encontrado.")
+        return matriz_productos
+    nuevo_producto.append(proveedor_id)
+    stock = int(input("Ingrese el stock: "))
+    precio = float(input("Ingrese el precio: "))
+    nuevo_producto.append(stock)
+    nuevo_producto.append(precio)
+    nuevo_producto.append(True) #asumimos que es esta activo al agregarse, despues podriamos cambiarlo
+
+    matriz_productos.append(nuevo_producto)
+    return matriz_productos
+
+
+def buscar_proveedor(busqueda):
+    proveedores = data.proveedores
+    busqueda = busqueda.upper() #lo pongo en mayuscula asi no hay errores de comparacion
+
+    for fila in proveedores:
+        nombre_proveedor = fila[1].upper()
+        if nombre_proveedor == busqueda:
+            return fila[0]
+    return None
