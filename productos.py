@@ -11,6 +11,14 @@ def menu_productos():
 
         if opcion == "1":
             f.mostrar_tabla(productos, descripcion_columnas)
+            orden_por_precio = input("¿Desea ordenar por precio? (s/n): ").lower()
+            if orden_por_precio == "s":
+                ascendente = input("Quiere que sea de menor a mayor? (s/n)")
+                if ascendente == "s":
+                    productos.sort(key=lambda x: x[5])
+                else:
+                    productos.sort(key=lambda x: x[5], reverse=True) 
+                f.mostrar_tabla(productos, descripcion_columnas)
         elif opcion == "2":
             id_buscar = int(input("Ingrese ID: "))
             print(f.buscar_id(productos, id_buscar))
