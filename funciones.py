@@ -1,5 +1,6 @@
 import random
 import data as data
+import re
 
 
 def buscar_id(matriz, id_buscar):
@@ -74,3 +75,36 @@ def buscar_proveedor(busqueda):
         if nombre_proveedor == busqueda:
             return fila[0]
     return None
+
+def busqueda_proveedor_parcial():
+    proveedores = data.proveedores
+    busqueda = input("Escriba la letra o las primeras 3 letras de los proveedores que desea buscar: ")
+    patron = re.compile(busqueda, re.IGNORECASE)
+
+    resultados = [fila for fila in proveedores if patron.search(fila[1])]
+    if resultados != 0:
+        print("Estos son los resultados encontrados para su búsqueda: \n")
+        for fila in resultados:
+            print(fila)
+    else:
+        print("No se encontraron resultados.")
+
+    # return resultados
+    # dejo comentada la ultima linea porque no se si queremos almacenar los resultados de la busqueda parcial. quizas es algo meramente informativo
+
+
+def busqueda_productos_parcial():
+    productos = data.productos
+    busqueda = input("Escriba la letra o las primeras 3 letras de los productos que desea buscar: ")
+    patron = re.compile(busqueda, re.IGNORECASE)
+
+    resultados = [fila for fila in productos if patron.search(fila[2])]
+    if resultados != 0:
+        print("Estos son los resultados encontrados para su búsqueda: \n")
+        for fila in resultados:
+            print(fila)
+    else:
+        print("No se encontraron resultados.")
+
+    # return resultados
+    # dejo comentada la ultima linea porque no se si queremos almacenar los resultados de la busqueda parcial. quizas es algo meramente informativo
