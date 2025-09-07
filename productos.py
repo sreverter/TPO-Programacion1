@@ -7,9 +7,14 @@ productos = data.productos
 def menu_productos():
 
     producto = 0
+    titulo_sistema = " Gestión de Productos "
+    screen = f'|{titulo_sistema:-^80}|'
+    funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir "
+    opcion = "Opción:"
     while True:
-        print("\n--- Gestión de Productos ---")
-        opcion = input("1: Ver | 2: Buscar | 3: Agregar | 4: Desactivar | 5: Salir\nOpción: ")
+        print(f"{screen}")
+        print(f'|{funciones:^80}|')
+        opcion = input(f'|{opcion:<80}|\n')
 
         if opcion == "1":
             f.mostrar_tabla(productos, descripcion_columnas)

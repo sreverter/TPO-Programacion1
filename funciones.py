@@ -9,13 +9,14 @@ def buscar_id(matriz, id_buscar):
     return None
 
 def mostrar_tabla(matriz, columnas):
-    for i in range(len(columnas)):
-        print(f"{columnas[i]:<25}", end="")
+    for i in columnas:
+        print(f"|{i:<25}|", end="")
     print()
     for fila in matriz:
-        for i in range(len(fila)):
-            print(f"{fila[i]:<25}", end="")
+        for i in fila:
+            print(f"|{i:<25}|", end="")
         print()
+    print()
 
 
 def desactivar_registro(matriz, id_desactivar):
