@@ -5,6 +5,8 @@ descripcion_columnas = ["ID", "NOMBRE", "VENTA_MINIMA", "PLAZO_ENTREGA", "CUIT",
 proveedores = data.proveedores
 
 def menu_proveedores():
+
+    proveedor = 1
     while True:
         print("\n--- Gestión de Proveedores ---")
         opcion = input("1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir\nOpción: ")
@@ -15,7 +17,7 @@ def menu_proveedores():
             id_buscar = int(input("Ingrese ID: "))
             print(f.buscar_id(proveedores, id_buscar))
         elif opcion == "3":
-            f.agregar_registro(proveedores, descripcion_columnas)
+            f.agregar_registro(proveedores, descripcion_columnas, proveedor)
         elif opcion == "4":
             id_modificar = int(input("Ingrese ID: "))
             fila = f.buscar_id(proveedores, id_modificar)
