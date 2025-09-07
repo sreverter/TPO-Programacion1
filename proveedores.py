@@ -1,18 +1,28 @@
 import data
 import funciones as f
 
-descripcion_columnas = ["ID", "NOMBRE", "VENTA_MINIMA", "PLAZO_ENTREGA", "CUIT", "ACTIVO"]
+descripcion_columnas = ["ID", "NOMBRE", "VENTA_MINIMA", "PLAZO_ENTREGA(dias)", "CUIT", "ACTIVO"]
 proveedores = data.proveedores
 
 def menu_proveedores():
 
     proveedor = 1
+    titulo_sistema = " Gestión de Proveedores "
+    screen = f'|{titulo_sistema:-^160}|'
+    funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir "
+    texto_opcion = "Opción:"
+    texto_error = "Opción inválida. Intente nuevamente."
+    color_inicio = '\033[37;44m'
+    terminar_color = '\033[0m'
+    negrita = '\033[1m'
+    color_error = '\033[37;41m'
     while True:
-        print("\n--- Gestión de Proveedores ---")
-        opcion = input("1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir\nOpción: ")
+        print(f"{negrita}{color_inicio}{screen}{terminar_color}")
+        print(f'{color_inicio}|{funciones:^160}|')
+        opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
 
         if opcion == "1":
-            f.mostrar_tabla(proveedores, descripcion_columnas)
+            f.mostrar_tabla(proveedores, descripcion_columnas, proveedor)
         elif opcion == "2":
             print("Desea hacer una busqueda de un solo proveedor por ID o una busqueda parcial?")
             opcion_busqueda = int(input("Ingrese 1 para busqueda por ID o 2 para busqueda parcial: "))
@@ -33,3 +43,5 @@ def menu_proveedores():
                 print("Proveedor no encontrado.")
         elif opcion == "5":
             break
+        else:
+            print(f'{color_error}{texto_error:<160}{terminar_color}')

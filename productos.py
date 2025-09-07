@@ -7,12 +7,22 @@ productos = data.productos
 def menu_productos():
 
     producto = 0
+    titulo_sistema = " Gestión de Productos "
+    screen = f'|{titulo_sistema:-^160}|'
+    funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir "
+    texto_opcion = "Opción:"
+    texto_error = "Opción inválida. Intente nuevamente."
+    color_inicio = '\033[37;44m'
+    terminar_color = '\033[0m'
+    negrita = '\033[1m'
+    color_error = '\033[37;41m'
     while True:
-        print("\n--- Gestión de Productos ---")
-        opcion = input("1: Ver | 2: Buscar | 3: Agregar | 4: Desactivar | 5: Salir\nOpción: ")
+        print(f"{negrita}{color_inicio}{screen}{terminar_color}")
+        print(f'{color_inicio}|{funciones:^160}|')
+        opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
 
         if opcion == "1":
-            f.mostrar_tabla(productos, descripcion_columnas)
+            f.mostrar_tabla(productos, descripcion_columnas, producto)
         elif opcion == "2":
             print("Desea hacer una busqueda de un solo producto por ID o una busqueda parcial?")
             opcion_busqueda = int(input("Ingrese 1 para busqueda por ID o 2 para busqueda parcial: "))
@@ -29,4 +39,4 @@ def menu_productos():
         elif opcion == "5":
             break
         else:
-            print("Opción inválida.")
+            print(f'{color_error}{texto_error:<160}{terminar_color}')
