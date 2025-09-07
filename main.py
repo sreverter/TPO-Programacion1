@@ -8,13 +8,13 @@ import proveedores
 
 def main():
     titulo_sistema = " Sistema de Inventario "
-    screen = f'|{titulo_sistema:-^80}|'
+    screen = f'|{titulo_sistema:-^160}|'
     funciones = " 1: Productos | 2: Proveedores | 3: Categorías | 4: Usuarios | 5: Salir "
     opcion = "Opción:"
     while True:
         print(screen)
-        print(f'|{funciones:^80}|')
-        opcion = input(f'|{opcion:<80}|\n')
+        print(f'|{funciones:^160}|')
+        opcion = input(f'|{opcion:<160}|\n')
         if opcion == "1":
             productos.menu_productos()
         elif opcion == "2":

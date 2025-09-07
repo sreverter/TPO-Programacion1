@@ -7,9 +7,14 @@ proveedores = data.proveedores
 def menu_proveedores():
 
     proveedor = 1
+    titulo_sistema = " Gestión de Proveedores "
+    screen = f'|{titulo_sistema:-^160}|'
+    funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir "
+    opcion = "Opción:"
     while True:
-        print("\n--- Gestión de Proveedores ---")
-        opcion = input("1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir\nOpción: ")
+        print(f"{screen}")
+        print(f'|{funciones:^160}|')
+        opcion = input(f'|{opcion:<160}|\n')
 
         if opcion == "1":
             f.mostrar_tabla(proveedores, descripcion_columnas)
