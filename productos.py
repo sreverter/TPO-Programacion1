@@ -10,14 +10,19 @@ def menu_productos():
     titulo_sistema = " Gestión de Productos "
     screen = f'|{titulo_sistema:-^160}|'
     funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir "
-    opcion = "Opción:"
+    texto_opcion = "Opción:"
+    texto_error = "Opción inválida. Intente nuevamente."
+    color_inicio = '\033[37;44m'
+    terminar_color = '\033[0m'
+    negrita = '\033[1m'
+    color_error = '\033[37;41m'
     while True:
-        print(f"{screen}")
-        print(f'|{funciones:^160}|')
-        opcion = input(f'|{opcion:<160}|\n')
+        print(f"{negrita}{color_inicio}{screen}{terminar_color}")
+        print(f'{color_inicio}|{funciones:^160}|')
+        opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
 
         if opcion == "1":
-            f.mostrar_tabla(productos, descripcion_columnas)
+            f.mostrar_tabla(productos, descripcion_columnas, producto)
         elif opcion == "2":
             id_buscar = int(input("Ingrese ID: "))
             print(f.buscar_id(productos, id_buscar))
@@ -29,4 +34,4 @@ def menu_productos():
         elif opcion == "5":
             break
         else:
-            print("Opción inválida.")
+            print(f'{color_error}{texto_error:<160}{terminar_color}')

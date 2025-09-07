@@ -1,6 +1,10 @@
 import random
 import data as data
 
+negrita = '\033[1m'
+color_tabla_par = '\033[37;44m'
+color_tabla_inpar = '\033[34;46m'
+terminar_color = '\033[0m'
 
 def buscar_id(matriz, id_buscar):
     for fila in matriz:
@@ -8,15 +12,33 @@ def buscar_id(matriz, id_buscar):
             return fila
     return None
 
-def mostrar_tabla(matriz, columnas):
-    for i in columnas:
-        print(f"|{i:<25}|", end="")
-    print()
-    for fila in matriz:
-        for i in fila:
-            print(f"|{i:<25}|", end="")
+def mostrar_tabla(matriz, columnas, opcion):
+    if (opcion == 0):  # Si es productos
+        for i in columnas:
+            print(f"{negrita}{color_tabla_par}|{i:<21}|", end="")
         print()
-    print()
+        for fila in matriz:
+            if fila[0] % 2 == 0:
+                for i in fila:
+                    print(f"{color_tabla_par}|{i:<21}|{terminar_color}", end="")
+            else:
+                for i in fila:
+                    print(f"{color_tabla_inpar}|{i:<21}|{terminar_color}", end="")
+            print()
+        print()
+    else:  # Si es proveedores
+        for i in columnas:
+            print(f"{negrita}{color_tabla_par}|{i:<25}|", end="")
+        print()
+        for fila in matriz:
+            if fila[0] % 2 == 0:
+                for i in fila:
+                    print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+            else:
+                for i in fila:
+                    print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
+            print()
+        print()
 
 
 def desactivar_registro(matriz, id_desactivar):
@@ -48,7 +70,7 @@ def agregar_registro(matriz_productos, columnas, opcion):
 
         matriz_productos.append(nuevo_producto)
 
-        mostrar_tabla(matriz_productos, columnas)
+        mostrar_tabla(matriz_productos, columnas, opcion)
         print("Producto agregado correctamente.")
     elif opcion == 1:  # Si es proveedores
         nuevo_proveedor = [matriz_productos[-1][0] + 1 if matriz_productos else 1]
@@ -64,7 +86,7 @@ def agregar_registro(matriz_productos, columnas, opcion):
 
         matriz_productos.append(nuevo_proveedor)
 
-        mostrar_tabla(matriz_productos, columnas)
+        mostrar_tabla(matriz_productos, columnas, opcion)
         print("Proveedor agregado correctamente.")
 
 
