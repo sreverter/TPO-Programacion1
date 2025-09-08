@@ -19,26 +19,28 @@ def mostrar_tabla(matriz, columnas, opcion):
             print(f"{negrita}{color_tabla_par}|{i:<21}|{terminar_color}", end="")
         print()
         for fila in matriz:
-            if fila[0] % 2 == 0:
-                for i in fila:
-                    print(f"{color_tabla_par}|{i:<21}|{terminar_color}", end="")
-            else:
-                for i in fila:
-                    print(f"{color_tabla_inpar}|{i:<21}|{terminar_color}", end="")
-            print()
+            if fila[6] == True:
+                if fila[0] % 2 == 0:
+                    for i in fila:
+                        print(f"{color_tabla_par}|{i:<21}|{terminar_color}", end="")
+                else:
+                    for i in fila:
+                        print(f"{color_tabla_inpar}|{i:<21}|{terminar_color}", end="")
+                print()
         print()
     else:  # Si es proveedores
         for i in columnas:
             print(f"{negrita}{color_tabla_par}|{i:<25}|", end="")
         print()
         for fila in matriz:
-            if fila[0] % 2 == 0:
-                for i in fila:
-                    print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
-            else:
-                for i in fila:
-                    print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
-            print()
+            if fila[5] == True:
+                if fila[0] % 2 == 0:
+                    for i in fila:
+                        print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+                else:
+                    for i in fila:
+                        print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
+                print()
         print()
 
 
