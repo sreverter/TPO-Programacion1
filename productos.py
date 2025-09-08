@@ -16,6 +16,7 @@ def menu_productos():
     terminar_color = '\033[0m'
     negrita = '\033[1m'
     color_error = '\033[37;41m'
+    ordenar = ""
     while True:
         print(f"{negrita}{color_inicio}{screen}{terminar_color}")
         print(f'{color_inicio}|{funciones:^160}|')
@@ -23,9 +24,33 @@ def menu_productos():
 
         if opcion == "1":
             f.mostrar_tabla(productos, descripcion_columnas, producto)
+            while ordenar != "4":
+                ordenar = input("Desea ordenar la tabla por alguna columna? 1-Nombre de producto | 2-Precio | 3-Stock | 4-No: ")
+                if ordenar == "1":
+                    productos.sort(key=lambda x: x[2])
+                    f.mostrar_tabla(productos, descripcion_columnas, producto)
+                elif ordenar == "2":
+                    orden = input("De menor a mayor (1) o mayor a menor (2): ")
+                    if orden == "1":
+                        productos.sort(key=lambda x: x[5])
+                    elif orden == "2":
+                        productos.sort(key=lambda x: x[5], reverse=True)
+                    f.mostrar_tabla(productos, descripcion_columnas, producto)
+                elif ordenar == "3":
+                    orden = input("De menor a mayor (1) o mayor a menor (2): ")
+                    if orden == "1":
+                        productos.sort(key=lambda x: x[4])
+                    elif orden == "2":
+                        productos.sort(key=lambda x: x[4], reverse=True)
+                    f.mostrar_tabla(productos, descripcion_columnas, producto)
         elif opcion == "2":
-            id_buscar = int(input("Ingrese ID: "))
-            print(f.buscar_id(productos, id_buscar))
+            print("Desea hacer una busqueda de un solo producto por ID o una busqueda parcial?")
+            opcion_busqueda = int(input("Ingrese 1 para busqueda por ID o 2 para busqueda parcial: "))
+            if opcion_busqueda == 1:
+                id_buscar = int(input("Ingrese ID: "))
+                print(f.buscar_id(productos, id_buscar))
+            elif opcion_busqueda == 2:
+                print(f.busqueda_productos_parcial())
         elif opcion == "3":
             f.agregar_registro(productos, descripcion_columnas, producto)
         elif opcion == "4":

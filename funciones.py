@@ -1,5 +1,6 @@
 import random
 import data as data
+import re
 
 negrita = '\033[1m'
 color_tabla_par = '\033[37;44m'
@@ -15,29 +16,31 @@ def buscar_id(matriz, id_buscar):
 def mostrar_tabla(matriz, columnas, opcion):
     if (opcion == 0):  # Si es productos
         for i in columnas:
-            print(f"{negrita}{color_tabla_par}|{i:<21}|", end="")
+            print(f"{negrita}{color_tabla_par}|{i:<21}|{terminar_color}", end="")
         print()
         for fila in matriz:
-            if fila[0] % 2 == 0:
-                for i in fila:
-                    print(f"{color_tabla_par}|{i:<21}|{terminar_color}", end="")
-            else:
-                for i in fila:
-                    print(f"{color_tabla_inpar}|{i:<21}|{terminar_color}", end="")
-            print()
+            if fila[6] == True:
+                if fila[0] % 2 == 0:
+                    for i in fila:
+                        print(f"{color_tabla_par}|{i:<21}|{terminar_color}", end="")
+                else:
+                    for i in fila:
+                        print(f"{color_tabla_inpar}|{i:<21}|{terminar_color}", end="")
+                print()
         print()
     else:  # Si es proveedores
         for i in columnas:
             print(f"{negrita}{color_tabla_par}|{i:<25}|", end="")
         print()
         for fila in matriz:
-            if fila[0] % 2 == 0:
-                for i in fila:
-                    print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
-            else:
-                for i in fila:
-                    print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
-            print()
+            if fila[5] == True:
+                if fila[0] % 2 == 0:
+                    for i in fila:
+                        print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+                else:
+                    for i in fila:
+                        print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
+                print()
         print()
 
 
@@ -101,3 +104,36 @@ def buscar_proveedor(busqueda):
         if nombre_proveedor == busqueda:
             return fila[0]
     return None
+
+def busqueda_proveedor_parcial():
+    proveedores = data.proveedores
+    busqueda = input("Escriba la letra o las primeras 3 letras de los proveedores que desea buscar: ")
+    patron = re.compile(busqueda, re.IGNORECASE)
+
+    resultados = [fila for fila in proveedores if patron.search(fila[1])]
+    if resultados != 0:
+        print("Estos son los resultados encontrados para su búsqueda: \n")
+        for fila in resultados:
+            print(fila)
+    else:
+        print("No se encontraron resultados.")
+
+    # return resultados
+    # dejo comentada la ultima linea porque no se si queremos almacenar los resultados de la busqueda parcial. quizas es algo meramente informativo
+
+
+def busqueda_productos_parcial():
+    productos = data.productos
+    busqueda = input("Escriba la letra o las primeras 3 letras de los productos que desea buscar: ")
+    patron = re.compile(busqueda, re.IGNORECASE)
+
+    resultados = [fila for fila in productos if patron.search(fila[2])]
+    if resultados != 0:
+        print("Estos son los resultados encontrados para su búsqueda: \n")
+        for fila in resultados:
+            print(fila)
+    else:
+        print("No se encontraron resultados.")
+
+    # return resultados
+    # dejo comentada la ultima linea porque no se si queremos almacenar los resultados de la busqueda parcial. quizas es algo meramente informativo

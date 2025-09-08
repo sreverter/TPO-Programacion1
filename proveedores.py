@@ -24,8 +24,13 @@ def menu_proveedores():
         if opcion == "1":
             f.mostrar_tabla(proveedores, descripcion_columnas, proveedor)
         elif opcion == "2":
-            id_buscar = int(input("Ingrese ID: "))
-            print(f.buscar_id(proveedores, id_buscar))
+            print("Desea hacer una busqueda de un solo proveedor por ID o una busqueda parcial?")
+            opcion_busqueda = int(input("Ingrese 1 para busqueda por ID o 2 para busqueda parcial: "))
+            if opcion_busqueda == 1:
+                id_buscar = int(input("Ingrese ID: "))
+                print(f.buscar_id(proveedores, id_buscar))
+            elif opcion_busqueda == 2:
+                print(f.busqueda_proveedor_parcial())
         elif opcion == "3":
             f.agregar_registro(proveedores, descripcion_columnas, proveedor)
         elif opcion == "4":

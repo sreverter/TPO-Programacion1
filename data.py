@@ -23,11 +23,11 @@ categorias = [
 # Referencia de productos
 #ID, ID_CATEGORIA, NOMBRE, ID_PROVEEDOR, STOCK, PRECIO
 productos = [
-    [1, 1, "Leche entera 1L", 1, 500, 1.20, True],
-    [2, 2, "Pechuga de pollo 1kg", 2, 200, 4.50, True],
-    [3, 3, "Agua mineral 500ml", 3, 1000, 0.80, True],
-    [4, 4, "Papas fritas 100g", 4, 350, 1.50, True],
-    [5, 5, "Manzana roja 1kg", 5, 250, 2.20, True]
+    [1, 1, "Leche entera 1L", 1, 500, 3000, True],
+    [2, 2, "Pechuga de pollo 1kg", 2, 200, 4500, True],
+    [3, 3, "Agua mineral 500ml", 3, 1000, 1500, True],
+    [4, 4, "Papas fritas 100g", 4, 350, 1500, True],
+    [5, 5, "Manzana roja 1kg", 5, 250, 2000, True]
 ]
 
 # usuarios hardcodeados
