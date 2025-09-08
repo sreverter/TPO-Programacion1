@@ -16,7 +16,7 @@ def buscar_id(matriz, id_buscar):
 def mostrar_tabla(matriz, columnas, opcion):
     if (opcion == 0):  # Si es productos
         for i in columnas:
-            print(f"{negrita}{color_tabla_par}|{i:<21}|", end="")
+            print(f"{negrita}{color_tabla_par}|{i:<21}|{terminar_color}", end="")
         print()
         for fila in matriz:
             if fila[0] % 2 == 0:
