@@ -19,7 +19,7 @@ def main():
     color_error = '\033[37;41m'
     while True:
         print(f'{negrita}{color_inicio}{screen}{terminar_color}')
-        print(f'|{color_inicio}{funciones:^160}|')
+        print(f'{color_inicio}|{funciones:^160}|')
         opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
         if opcion == "1":
             productos.menu_productos()
