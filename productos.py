@@ -1,7 +1,7 @@
 import data
 import funciones as f
 
-descripcion_columnas = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "ACTIVO"]
+descripcion_columnas = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "STATUS"]
 productos = data.productos
 
 def menu_productos():
@@ -23,7 +23,13 @@ def menu_productos():
         opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
 
         if opcion == "1":
-            f.mostrar_tabla(productos, descripcion_columnas, producto)
+            ver_inactivos = input("Desea ver los productos inactivos? (s/n): ")
+            if ver_inactivos.lower() == "s":
+                ver_inactivos = True
+                f.mostrar_tabla(productos, descripcion_columnas, producto, ver_inactivos)
+            else:
+                ver_inactivos = False
+                f.mostrar_tabla(productos, descripcion_columnas, producto, ver_inactivos)
             while ordenar != "4":
                 ordenar = input("Desea ordenar la tabla por alguna columna? 1-Nombre de producto | 2-Precio | 3-Stock | 4-No: ")
                 if ordenar == "1":

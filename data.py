@@ -31,7 +31,7 @@ productos = [
     [6, 1, "Yogur natural 200g", 6, 300, 1200, True],
     [7, 2, "Carne vacuna 1kg", 7, 180, 6000, False],
     [8, 3, "Jugo de naranja 1L", 8, 400, 2500, True],
-    [9, 4, "Galletitas saladas 150g", 9, 500, 1700, False],
+    [9, 4, "Galletitas saladas", 9, 500, 1700, False],
     [10, 5, "Banana 1kg", 10, 220, 1800, True],
     [11, 1, "Queso cremoso 500g", 1, 150, 3500, True],
     [12, 2, "Chorizo 500g", 2, 100, 3200, False],

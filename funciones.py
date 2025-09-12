@@ -7,6 +7,9 @@ negrita = '\033[1m'
 color_tabla_par = '\033[37;44m'
 color_tabla_inpar = '\033[34;46m'
 terminar_color = '\033[0m'
+descripcion_columnas_categorias = ["ID", "CATEGORIA_NOMBRE"]
+descripcion_columnas_productos = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "STATUS"]
+descripcion_columnas_proveedores = ["ID", "Nombre", "Venta mínima", "Plazo de entrega(dias)", "CUIT", "Status"]
 
 def buscar_id(matriz, id_buscar):
     for fila in matriz:
@@ -14,13 +17,21 @@ def buscar_id(matriz, id_buscar):
             return fila
     return None
 
-def mostrar_tabla(matriz, columnas, opcion):
+def mostrar_tabla(matriz, columnas, opcion, inactivos):
     if (opcion == 0):  # Si es productos
         for i in columnas:
             print(f"{negrita}{color_tabla_par}|{i:<21}|{terminar_color}", end="")
         print()
         for fila in matriz:
-            if fila[6] == True:
+            if inactivos == True:
+                if fila[0] % 2 == 0:
+                    for i in fila:
+                        print(f"{color_tabla_par}|{i:<21}|{terminar_color}", end="")
+                else:
+                    for i in fila:
+                        print(f"{color_tabla_inpar}|{i:<21}|{terminar_color}", end="")
+                print()
+            elif fila[6] == True:
                 if fila[0] % 2 == 0:
                     for i in fila:
                         print(f"{color_tabla_par}|{i:<21}|{terminar_color}", end="")
@@ -35,6 +46,14 @@ def mostrar_tabla(matriz, columnas, opcion):
         print()
         for fila in matriz:
             if fila[5] == True:
+                if fila[0] % 2 == 0:
+                    for i in fila:
+                        print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+                else:
+                    for i in fila:
+                        print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
+                print()
+            elif inactivos == True:
                 if fila[0] % 2 == 0:
                     for i in fila:
                         print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
@@ -71,9 +90,14 @@ def desactivar_registro(matriz, id_desactivar):
 def agregar_registro(matriz, columnas, opcion):
     if opcion == 0:  # Si es productos
         nuevo_producto = [matriz[-1][0] + 1 if matriz else 1]
+        mostrar_tabla(data.categorias, descripcion_columnas_categorias, 2)
+        categoria_producto = input("ingrese el ID de la categoria de producto es: (Escriba N si no es ninguna de las categorias listadas) ")
+        if categoria_producto.upper() == "N":
+            print("Debe agregar una categoría antes de agregar un producto.")
+            return
         nombre_producto = input("Ingrese el nombre del producto: ")
         nuevo_producto.append(nombre_producto)
-        mostrar_tabla(data.proveedores, ["ID", "Nombre", "Venta mínima", "Plazo de entrega", "CUIT", "Status"], 1)
+        mostrar_tabla(data.proveedores, descripcion_columnas_proveedores, 1)
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
         proveedor_id = buscar_proveedor(nombre_proveedor)
         if proveedor_id is None:
@@ -106,7 +130,7 @@ def agregar_registro(matriz, columnas, opcion):
 
         mostrar_tabla(matriz, columnas, opcion)
         print("Proveedor agregado correctamente.")
-    else:
+    elif opcion == 2:  # Si es categorias o stock
         nueva_categoria = [matriz[-1][0] + 1 if matriz else 1]
         nombre_categoria = input("Ingrese el nombre de la categoría: ") 
         nueva_categoria.append(nombre_categoria)
