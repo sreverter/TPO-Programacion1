@@ -1,6 +1,7 @@
 import random
 import data as data
 import re
+import datetime
 
 negrita = '\033[1m'
 color_tabla_par = '\033[37;44m'
@@ -28,7 +29,7 @@ def mostrar_tabla(matriz, columnas, opcion):
                         print(f"{color_tabla_inpar}|{i:<21}|{terminar_color}", end="")
                 print()
         print()
-    else:  # Si es proveedores
+    elif (opcion == 1):  # Si es proveedores
         for i in columnas:
             print(f"{negrita}{color_tabla_par}|{i:<25}|", end="")
         print()
@@ -41,6 +42,19 @@ def mostrar_tabla(matriz, columnas, opcion):
                     for i in fila:
                         print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
                 print()
+        print()
+    else:  # Si es movimiento de stock
+        for i in columnas:
+            print(f"{negrita}{color_tabla_par}|{i:<25}|", end="")
+        print()
+        for fila in matriz:
+            if fila[0] % 2 == 0:
+                for i in fila:
+                    print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+            else:
+                for i in fila:
+                    print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
+            print()
         print()
 
 
@@ -137,3 +151,68 @@ def busqueda_productos_parcial():
 
     # return resultados
     # dejo comentada la ultima linea porque no se si queremos almacenar los resultados de la busqueda parcial. quizas es algo meramente informativo
+
+def modificar_registro(matriz, columnas, opcion):
+    if opcion == 0:  # Si es productos
+        id_modificar = int(input("Ingrese el ID del producto a modificar: "))
+        producto = buscar_id(matriz, id_modificar)
+        if producto:
+            print("Producto encontrado:")
+            print(producto)
+            opcion_modificar = int(input("Qué desea modificar? 1-Nombre del producto | 2-Nombre del proveedor | 3-Stock | 4-Precio: "))
+            if opcion_modificar == 1:
+                nombre_producto = input("Ingrese el nuevo nombre del producto: ")
+                producto[2] = nombre_producto
+            elif opcion_modificar == 2:
+                nombre_proveedor = input("Ingrese el nuevo nombre del proveedor: ")
+                producto[3] = nombre_proveedor
+            elif opcion_modificar == 3:
+                opcion_stock = input("Esta 1-Ingresando stock o 2-Retirando stock?: ")
+                if opcion_stock == "1":
+                    stock = int(input("Ingrese la cantidad a ingresar: "))
+                    producto[4] += stock
+                    movimiento_stock(0, stock, producto[2])  # Registro de movimiento de ingreso
+                elif opcion_stock == "2":
+                    stock = int(input("Ingrese la cantidad a retirar: "))
+                    producto[4] -= stock
+                    movimiento_stock(1, stock, producto[2])  # Registro de movimiento de egreso
+            elif opcion_modificar == 4:
+                precio = float(input("Ingrese el nuevo precio: "))
+                producto[5] = precio
+            mostrar_tabla(matriz, columnas, opcion)
+            print("Producto modificado correctamente.")
+        else:
+            print("Producto no encontrado.")
+    elif opcion == 1:  # Si es proveedores
+        id_modificar = int(input("Ingrese el ID del proveedor a modificar: "))
+        proveedor = buscar_id(matriz, id_modificar)
+        if proveedor:
+            print("Proveedor encontrado:")
+            print(proveedor)
+            nombre_proveedor = input("Ingrese el nuevo nombre del proveedor: ")
+            proveedor[1] = nombre_proveedor
+            venta_minima = int(input("Ingrese la nueva venta mínima: "))
+            proveedor[2] = venta_minima
+            plazo_entrega = int(input("Ingrese el nuevo plazo de entrega (días): "))
+            proveedor[3] = plazo_entrega
+            cuit = input("Ingrese el nuevo CUIT: ")
+            proveedor[4] = cuit
+            mostrar_tabla(matriz, columnas, opcion)
+            print("Proveedor modificado correctamente.")
+        else:
+            print("Proveedor no encontrado.")
+    return matriz
+
+def movimiento_stock(opcion, stock, producto):
+    descripcion_columnas = ["ID", "Tipo(Ingreso, Egreso)", "Producto", "cantidad", "fecha"]
+    movimiento_stock = data.movimiento_stock
+    id_movimiento = len(movimiento_stock) + 1
+    if opcion == 0:  # Si es ingreso
+        tipo_movimiento = "Ingreso"
+        cantidad = stock
+    elif opcion == 1:  # Si es egreso
+        tipo_movimiento = "Egreso"
+        cantidad = -stock
+    fecha = datetime.date.today().strftime("%d-%m-%y")
+    movimiento_stock.append((id_movimiento, tipo_movimiento, producto, cantidad, fecha))
+    mostrar_tabla(movimiento_stock, descripcion_columnas, 2) 

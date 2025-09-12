@@ -55,3 +55,12 @@ usuarios = [
 #     [4, 350, 75],
 #     [5, 250, 60]
 # ]
+
+#movimiento de stock (id, tipo (ingreso, egreso), producto, cantidad, fecha)
+movimiento_stock = [
+    (1, "ingreso", "Leche entera 1L", 100, "01-01-25"),
+    (2, "egreso", "Pechuga de pollo 1kg", 50, "02-01-25"),
+    (3, "ingreso", "Agua mineral 500ml", 200, "03-01-25"),
+    (4, "egreso", "Papas fritas 100g", 150, "04-01-25"),
+    (5, "ingreso", "Manzana roja 1kg", 80, "05-01-25")
+]
