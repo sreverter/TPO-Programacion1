@@ -38,14 +38,15 @@ def menu_proveedores():
             if opcion_busqueda.isdigit() == False:
                 print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
             if opcion_busqueda == "1":
-                id_buscar = int(input("Ingrese ID: "))
-                print(scripts.buscar_id(proveedores, id_buscar, proveedor))
+                id_buscar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+                resultado_busqueda_id = scripts.buscar_id(proveedores, id_buscar, proveedor)
+                print(f"{color_inicio}El proveedor de ID {id_buscar} es: {resultado_busqueda_id[1]}, este tiene una venta mínima de {resultado_busqueda_id[2]} unidades y un plazo de entrega de {resultado_busqueda_id[3]} días.{terminar_color}")
             elif opcion_busqueda == "2":
                 print(scripts.busqueda_proveedor_parcial())
         elif opcion == "3":
             scripts.agregar_registro(proveedores, descripcion_columnas, proveedor)
         elif opcion == "4":
-            id_modificar = int(input("Ingrese ID: "))
+            id_modificar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
             fila = scripts.buscar_id(proveedores, id_modificar, proveedor)
             if fila:
                 for i in range(1, len(descripcion_columnas)):

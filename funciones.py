@@ -326,7 +326,7 @@ def modificar_registro(matriz, columnas, opcion):
         proveedor = buscar_id(matriz, id_modificar)
         if proveedor:
             print(f"{color_tabla_par}Proveedor encontrado:{terminar_color}")
-            print(proveedor)
+            print(proveedor[1])
             nombre_proveedor = input(f"{color_tabla_par}Ingrese el nuevo nombre del proveedor: {terminar_color}")
             proveedor[1] = nombre_proveedor
             venta_minima = int(input(f"{color_tabla_par}Ingrese la nueva venta mínima: "))
