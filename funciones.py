@@ -5,7 +5,7 @@ import datetime
 
 negrita = '\033[1m'
 color_tabla_par = '\033[37;44m'
-color_tabla_inpar = '\033[34;46m'
+color_tabla_impar = '\033[34;46m'
 terminar_color = '\033[0m'
 descripcion_columnas_categorias = ["ID", "CATEGORIA_NOMBRE"]
 descripcion_columnas_productos = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "STATUS"]
@@ -25,12 +25,8 @@ def buscar_id(matriz, id_buscar, opcion):
 def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
     if opcion == 0:
         tabla_entidad_desactivada = list(filter(lambda x: x["status"] == False, matriz))
-        for diccionario in tabla_entidad_desactivada:
-            print(diccionario, end="\n")
     elif opcion == 1:
         tabla_entidad_desactivada = list(filter(lambda x: x[5] == False, matriz)) 
-        for diccionario in tabla_entidad_desactivada:
-            print(diccionario, end="\n")
     if (opcion == 0):  # Si es productos
         claves_diccionario = list(matriz[1].keys())
         for i in claves_diccionario:
@@ -40,18 +36,54 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
             if inactivos == True:
                 if fila["id"] % 2 == 0:
                     for i in fila:
-                        print(f"{color_tabla_par}|{fila[i]:<21}|{terminar_color}", end="")
+                        if i == "id_categoria" or i == "id_proveedor":
+                            id_relacionado = fila[i]
+                            if i == "id_categoria":
+                                categoria = buscar_id(data.categorias, id_relacionado, 2)
+                                print(f"{color_tabla_par}|{categoria[1]:<21}|{terminar_color}", end="")
+                            elif i == "id_proveedor":
+                                proveedor = buscar_id(data.proveedores, id_relacionado, 1)
+                                print(f"{color_tabla_par}|{proveedor[1]:<21}|{terminar_color}", end="")
+                        else:
+                            print(f"{color_tabla_par}|{fila[i]:<21}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        print(f"{color_tabla_inpar}|{fila[i]:<21}|{terminar_color}", end="")
+                        if i == "id_categoria" or i == "id_proveedor":
+                            id_relacionado = fila[i]
+                            if i == "id_categoria":
+                                categoria = buscar_id(data.categorias, id_relacionado, 2)
+                                print(f"{color_tabla_impar}|{categoria[1]:<21}|{terminar_color}", end="")
+                            elif i == "id_proveedor":
+                                proveedor = buscar_id(data.proveedores, id_relacionado, 1)
+                                print(f"{color_tabla_impar}|{proveedor[1]:<21}|{terminar_color}", end="")
+                        else:
+                            print(f"{color_tabla_impar}|{fila[i]:<21}|{terminar_color}", end="")
                 print()
             elif fila["status"] == True:
                 if fila["id"] % 2 == 0:
                     for i in fila:
-                        print(f"{color_tabla_par}|{fila[i]:<21}|{terminar_color}", end="")
+                        if i == "id_categoria" or i == "id_proveedor":
+                            id_relacionado = fila[i]
+                            if i == "id_categoria":
+                                categoria = buscar_id(data.categorias, id_relacionado, 2)
+                                print(f"{color_tabla_par}|{categoria[1]:<21}|{terminar_color}", end="")
+                            elif i == "id_proveedor":
+                                proveedor = buscar_id(data.proveedores, id_relacionado, 1)
+                                print(f"{color_tabla_par}|{proveedor[1]:<21}|{terminar_color}", end="")
+                        else:
+                            print(f"{color_tabla_par}|{fila[i]:<21}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        print(f"{color_tabla_inpar}|{fila[i]:<21}|{terminar_color}", end="")
+                        if i == "id_categoria" or i == "id_proveedor":
+                            id_relacionado = fila[i]
+                            if i == "id_categoria":
+                                categoria = buscar_id(data.categorias, id_relacionado, 2)
+                                print(f"{color_tabla_impar}|{categoria[1]:<21}|{terminar_color}", end="")
+                            elif i == "id_proveedor":
+                                proveedor = buscar_id(data.proveedores, id_relacionado, 1)
+                                print(f"{color_tabla_impar}|{proveedor[1]:<21}|{terminar_color}", end="")
+                        else:
+                            print(f"{color_tabla_impar}|{fila[i]:<21}|{terminar_color}", end="")
                 print()
         print()
     elif (opcion == 1):  # Si es proveedores
@@ -65,7 +97,7 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
                         print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
+                        print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
                 print()
             elif inactivos == True:
                 if fila[0] % 2 == 0:
@@ -73,7 +105,7 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
                         print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
+                        print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
                 print()
         print()
     else:  # Si es stock o categorias
@@ -86,7 +118,7 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
                     print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
             else:
                 for i in fila:
-                    print(f"{color_tabla_inpar}|{i:<25}|{terminar_color}", end="")
+                    print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
             print()
         print()
 
