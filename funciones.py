@@ -11,10 +11,15 @@ descripcion_columnas_categorias = ["ID", "CATEGORIA_NOMBRE"]
 descripcion_columnas_productos = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "STATUS"]
 descripcion_columnas_proveedores = ["ID", "Nombre", "Venta mínima", "Plazo de entrega(dias)", "CUIT", "Status"]
 
-def buscar_id(matriz, id_buscar):
-    for fila in matriz:
-        if fila[0] == id_buscar:
-            return fila
+def buscar_id(matriz, id_buscar, opcion):
+    if opcion == 0:  # Si es productos
+        for fila in matriz:
+            if fila["id"] == id_buscar:
+                return fila
+    else:  # Si es proveedores o categorias
+        for fila in matriz:
+            if fila[0] == id_buscar:
+                return fila
     return None
 
 def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
@@ -78,42 +83,41 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
         print()
 
 
-def desactivar_registro(matriz, id_desactivar):
-    fila = buscar_id(matriz, id_desactivar)
+def desactivar_registro(matriz, id_desactivar, opcion):
+    fila = buscar_id(matriz, id_desactivar, opcion)
     if fila:
-        fila[-1] = False
+        fila["status"] = False
         print("Registro desactivado correctamente.")
-        return True
     else:
         print("No se encontró el registro.")
-        return False
 
 def agregar_registro(matriz, columnas, opcion):
     if opcion == 0:  # Si es productos
-        nuevo_producto = [matriz[-1][0] + 1 if matriz else 1]
+        nuevo_producto = {}
+        nuevo_producto["id"] = matriz[-1]["id"] + 1 if matriz else 1
         mostrar_tabla(data.categorias, descripcion_columnas_categorias, 2)
         categoria_producto = input("ingrese el ID de la categoria de producto es: (Escriba N si no es ninguna de las categorias listadas) ")
         if categoria_producto.upper() == "N":
             print("Debe agregar una categoría antes de agregar un producto.")
             return
-        nuevo_producto.append(int(categoria_producto))
+        nuevo_producto["id_categoria"]=(int(categoria_producto))
         nombre_producto = input("Ingrese el nombre del producto: ")
-        nuevo_producto.append(nombre_producto)
+        nuevo_producto["nombre"]=(nombre_producto)
         mostrar_tabla(data.proveedores, descripcion_columnas_proveedores, 1)
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
         proveedor_id = buscar_proveedor(nombre_proveedor)
         if proveedor_id is None:
             print("Proveedor no encontrado.")
             return matriz
-        nuevo_producto.append(proveedor_id)
+        nuevo_producto["id_proveedor"]=(proveedor_id)
         stock = int(input("Ingrese el stock: "))
         precio = float(input("Ingrese el precio: "))
-        nuevo_producto.append(stock)
-        nuevo_producto.append(precio)
-        nuevo_producto.append(True) #asumimos que es esta activo al agregarse, despues podriamos cambiarlo
+        nuevo_producto["stock"]=(stock)
+        nuevo_producto["precio"]=(precio)
+        nuevo_producto["status"]=(True) #asumimos que es esta activo al agregarse, despues podriamos cambiarlo
 
         matriz.append(nuevo_producto)
-
+        print(nuevo_producto)
         mostrar_tabla(matriz, columnas, opcion)
         print("Producto agregado correctamente.")
     elif opcion == 1:  # Si es proveedores
@@ -124,8 +128,20 @@ def agregar_registro(matriz, columnas, opcion):
         nuevo_proveedor.append(venta_minima)
         plazo_entrega = int(input("Ingrese el plazo de entrega (días): "))
         nuevo_proveedor.append(plazo_entrega)
-        cuit = input("Ingrese el CUIT: ")
-        nuevo_proveedor.append(cuit)
+        cuit_proveedores = sorted([fila[4] for fila in matriz])
+        while len(cuit_proveedores) != nuevo_proveedor[0]:
+            print(len(cuit_proveedores))
+            print(nuevo_proveedor[0])
+            cuit = input("Ingrese el CUIT: ")
+            patron = re.compile('\d{2}-\d{8}-\d')
+            if patron.match(cuit):
+                if cuit in cuit_proveedores:
+                    print("El CUIT ya existe. Ingrese un CUIT único.")
+                else:
+                    cuit_proveedores.append(cuit)
+                    nuevo_proveedor.append(cuit)
+            else:
+                print("El formato de CUIT es incorrecto. Debe ser XX-XXXXXXXX-X.")
         nuevo_proveedor.append(True)
 
         matriz.append(nuevo_proveedor)
@@ -189,30 +205,30 @@ def busqueda_productos_parcial():
 def modificar_registro(matriz, columnas, opcion):
     if opcion == 0:  # Si es productos
         id_modificar = int(input("Ingrese el ID del producto a modificar: "))
-        producto = buscar_id(matriz, id_modificar)
+        producto = buscar_id(matriz, id_modificar, opcion)
         if producto:
             print("Producto encontrado:")
             print(producto)
             opcion_modificar = int(input("Qué desea modificar? 1-Nombre del producto | 2-Nombre del proveedor | 3-Stock | 4-Precio: "))
             if opcion_modificar == 1:
                 nombre_producto = input("Ingrese el nuevo nombre del producto: ")
-                producto[2] = nombre_producto
+                producto["nombre"] = nombre_producto
             elif opcion_modificar == 2:
                 nombre_proveedor = input("Ingrese el nuevo nombre del proveedor: ")
-                producto[3] = nombre_proveedor
+                producto["id_proveedor"] = nombre_proveedor
             elif opcion_modificar == 3:
                 opcion_stock = input("Esta 1-Ingresando stock o 2-Retirando stock?: ")
                 if opcion_stock == "1":
                     stock = int(input("Ingrese la cantidad a ingresar: "))
-                    producto[4] += stock
-                    movimiento_stock(0, stock, producto[2])  # Registro de movimiento de ingreso
+                    producto["stock"] += stock
+                    movimiento_stock(0, stock, producto["nombre"])  # Registro de movimiento de ingreso
                 elif opcion_stock == "2":
                     stock = int(input("Ingrese la cantidad a retirar: "))
-                    producto[4] -= stock
+                    producto["stock"] -= stock
                     movimiento_stock(1, stock, producto[2])  # Registro de movimiento de egreso
             elif opcion_modificar == 4:
                 precio = float(input("Ingrese el nuevo precio: "))
-                producto[5] = precio
+                producto["precio"] = precio
             mostrar_tabla(matriz, columnas, opcion)
             print("Producto modificado correctamente.")
         else:

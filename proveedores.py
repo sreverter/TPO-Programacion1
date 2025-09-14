@@ -28,14 +28,14 @@ def menu_proveedores():
             opcion_busqueda = int(input("Ingrese 1 para busqueda por ID o 2 para busqueda parcial: "))
             if opcion_busqueda == 1:
                 id_buscar = int(input("Ingrese ID: "))
-                print(f.buscar_id(proveedores, id_buscar))
+                print(f.buscar_id(proveedores, id_buscar, proveedor))
             elif opcion_busqueda == 2:
                 print(f.busqueda_proveedor_parcial())
         elif opcion == "3":
             f.agregar_registro(proveedores, descripcion_columnas, proveedor)
         elif opcion == "4":
             id_modificar = int(input("Ingrese ID: "))
-            fila = f.buscar_id(proveedores, id_modificar)
+            fila = f.buscar_id(proveedores, id_modificar, proveedor)
             if fila:
                 for i in range(1, len(descripcion_columnas)):
                     fila[i] = input(f"Nuevo valor para {descripcion_columnas[i]} ({fila[i]}): ") or fila[i]

@@ -30,14 +30,14 @@ def menu_categorias():
             opcion_busqueda = int(input("Ingrese 1 para busqueda por ID o 2 para busqueda parcial: "))
             if opcion_busqueda == 1:
                 id_buscar = int(input("Ingrese ID: "))
-                print(f.buscar_id(categorias, id_buscar))
+                print(f.buscar_id(categorias, id_buscar, categoria))
             elif opcion_busqueda == 2:
                 print(f.busqueda_productos_parcial())
         elif opcion == "3":
             f.agregar_registro(categorias, descripcion_columnas, categoria)
         elif opcion == "4":
             id_eliminar = int(input("Ingrese ID: "))
-            f.desactivar_registro(categorias, id_eliminar)
+            f.desactivar_registro(categorias, id_eliminar, categoria)
         elif opcion == "5":
             break
         else:
