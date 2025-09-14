@@ -239,7 +239,7 @@ def agregar_registro(matriz, columnas, opcion):
         while nombre_categoria.capitalize() in conjunto_categorias:
             print("La categoría ya existe. Ingrese un nombre único.")
             nombre_categoria = input("Ingrese el nombre de la categoría: ")
-        nueva_categoria.append(nombre_categoria)
+        nueva_categoria.append(nombre_categoria.capitalize())
         matriz.append(nueva_categoria)
         mostrar_tabla(matriz, columnas, opcion)
         print(f"Categoría agregada correctamente.{terminar_color}")

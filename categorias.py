@@ -1,5 +1,5 @@
 import data
-import funciones as f
+import funciones as scripts
 # creo la entidad y la dejo vacia por si la llegamos a necesitar en un futuro
 
 descripcion_columnas = ["ID", "CATEGORIA_NOMBRE"]
@@ -24,20 +24,17 @@ def menu_categorias():
         opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
 
         if opcion == "1":
-            f.mostrar_tabla(categorias, descripcion_columnas, categoria)
+            scripts.mostrar_tabla(categorias, descripcion_columnas, categoria)
         elif opcion == "2":
-            print("Desea hacer una busqueda de un solo producto por ID o una busqueda parcial?")
-            opcion_busqueda = int(input("Ingrese 1 para busqueda por ID o 2 para busqueda parcial: "))
-            if opcion_busqueda == 1:
-                id_buscar = int(input("Ingrese ID: "))
-                print(f.buscar_id(categorias, id_buscar, categoria))
-            elif opcion_busqueda == 2:
-                print(f.busqueda_productos_parcial())
+                scripts.mostrar_tabla(categorias, descripcion_columnas, categoria)
+                id_buscar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+                resultado_busqueda_id = scripts.buscar_id(categorias, id_buscar, categoria)
+                print(f"{color_inicio}La categoria que usted busco es: {resultado_busqueda_id[1]}")
         elif opcion == "3":
-            f.agregar_registro(categorias, descripcion_columnas, categoria)
+            scripts.agregar_registro(categorias, descripcion_columnas, categoria)
         elif opcion == "4":
-            id_eliminar = int(input("Ingrese ID: "))
-            f.desactivar_registro(categorias, id_eliminar, categoria)
+            id_eliminar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+            scripts.desactivar_registro(categorias, id_eliminar, categoria)
         elif opcion == "5":
             break
         else:
