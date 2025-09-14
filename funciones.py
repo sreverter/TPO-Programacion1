@@ -36,7 +36,7 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
             if inactivos == True:
                 if fila["id"] % 2 == 0:
                     for i in fila:
-                        if i == "id_categoria" or i == "id_proveedor":
+                        if i == "id_categoria" or i == "id_proveedor" or i == "status":
                             id_relacionado = fila[i]
                             if i == "id_categoria":
                                 categoria = buscar_id(data.categorias, id_relacionado, 2)
@@ -44,11 +44,16 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
                             elif i == "id_proveedor":
                                 proveedor = buscar_id(data.proveedores, id_relacionado, 1)
                                 print(f"{color_tabla_par}|{proveedor[1]:<21}|{terminar_color}", end="")
+                            elif i == "status":
+                                if fila["status"] == True:
+                                    print(f"{color_tabla_par}|{'Activo':<21}|{terminar_color}", end="")
+                                else:
+                                    print(f"{color_tabla_par}|{'Inactivo':<21}|{terminar_color}", end="")
                         else:
                             print(f"{color_tabla_par}|{fila[i]:<21}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        if i == "id_categoria" or i == "id_proveedor":
+                        if i == "id_categoria" or i == "id_proveedor" or i == "status":
                             id_relacionado = fila[i]
                             if i == "id_categoria":
                                 categoria = buscar_id(data.categorias, id_relacionado, 2)
@@ -56,13 +61,18 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
                             elif i == "id_proveedor":
                                 proveedor = buscar_id(data.proveedores, id_relacionado, 1)
                                 print(f"{color_tabla_impar}|{proveedor[1]:<21}|{terminar_color}", end="")
+                            elif i == "status":
+                                if fila["status"] == True:
+                                    print(f"{color_tabla_impar}|{'Activo':<21}|{terminar_color}", end="")
+                                else:
+                                    print(f"{color_tabla_impar}|{'Inactivo':<21}|{terminar_color}", end="")
                         else:
                             print(f"{color_tabla_impar}|{fila[i]:<21}|{terminar_color}", end="")
                 print()
             elif fila["status"] == True:
                 if fila["id"] % 2 == 0:
                     for i in fila:
-                        if i == "id_categoria" or i == "id_proveedor":
+                        if i == "id_categoria" or i == "id_proveedor" or i == "status":
                             id_relacionado = fila[i]
                             if i == "id_categoria":
                                 categoria = buscar_id(data.categorias, id_relacionado, 2)
@@ -70,11 +80,13 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
                             elif i == "id_proveedor":
                                 proveedor = buscar_id(data.proveedores, id_relacionado, 1)
                                 print(f"{color_tabla_par}|{proveedor[1]:<21}|{terminar_color}", end="")
+                            elif i == "status":
+                                print(f"{color_tabla_par}|{'Activo':<21}|{terminar_color}", end="")
                         else:
                             print(f"{color_tabla_par}|{fila[i]:<21}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        if i == "id_categoria" or i == "id_proveedor":
+                        if i == "id_categoria" or i == "id_proveedor" or i == "status":
                             id_relacionado = fila[i]
                             if i == "id_categoria":
                                 categoria = buscar_id(data.categorias, id_relacionado, 2)
@@ -82,6 +94,8 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
                             elif i == "id_proveedor":
                                 proveedor = buscar_id(data.proveedores, id_relacionado, 1)
                                 print(f"{color_tabla_impar}|{proveedor[1]:<21}|{terminar_color}", end="")
+                            elif i == "status":
+                                print(f"{color_tabla_impar}|{'Activo':<21}|{terminar_color}", end="")
                         else:
                             print(f"{color_tabla_impar}|{fila[i]:<21}|{terminar_color}", end="")
                 print()
@@ -94,18 +108,34 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
             if fila[5] == True:
                 if fila[0] % 2 == 0:
                     for i in fila:
-                        print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+                        if i is True:
+                            print(f"{color_tabla_par}|{"Activo":<25}|{terminar_color}", end="")
+                        else:
+                            print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
+                        if i is True:
+                            print(f"{color_tabla_impar}|{"Activo":<25}|{terminar_color}", end="")
+                        else:
+                            print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
                 print()
             elif inactivos == True:
                 if fila[0] % 2 == 0:
                     for i in fila:
-                        print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+                        if i is False:
+                            print(f"{color_tabla_par}|{'Inactivo':<25}|{terminar_color}", end="")
+                        elif i is True:
+                            print(f"{color_tabla_par}|{'Activo':<25}|{terminar_color}", end="")
+                        else:
+                            print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
+                        if i is False:
+                            print(f"{color_tabla_impar}|{'Inactivo':<25}|{terminar_color}", end="")
+                        elif i is True:
+                            print(f"{color_tabla_impar}|{'Activo':<25}|{terminar_color}", end="")
+                        else:
+                            print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
                 print()
         print()
     else:  # Si es stock o categorias
