@@ -25,7 +25,7 @@ def menu_proveedores():
             print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
 
         if opcion == "1":
-            ver_inactivos = input("Desea ver los productos inactivos? (s/n): ")
+            ver_inactivos = input(f"{color_inicio}Desea ver los proveedores inactivos? (s/n): {terminar_color}")
             if ver_inactivos.lower() == "s":
                 ver_inactivos = True
                 scripts.mostrar_tabla(proveedores, descripcion_columnas, proveedor, ver_inactivos)

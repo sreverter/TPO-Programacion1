@@ -292,6 +292,7 @@ def busqueda_productos_parcial():
 
 def modificar_registro(matriz, columnas, opcion):
     if opcion == 0:  # Si es productos
+        mostrar_tabla(matriz, columnas, opcion)
         id_modificar = int(input(f"{color_tabla_par}Ingrese el ID del producto a modificar: {terminar_color}"))
         producto = buscar_id(matriz, id_modificar, opcion)
         if producto:
@@ -312,7 +313,7 @@ def modificar_registro(matriz, columnas, opcion):
                     producto["stock"] += stock
                     movimiento_stock(0, stock, producto["nombre"])  # Registro de movimiento de ingreso
                     calcular_tiempo = calcular_tiempo_pedido(buscar_id(data.proveedores, producto["id_proveedor"], 1)[3])
-                    print(f"{color_tabla_par}El producto llegará el día {calcular_tiempo}{terminar_color}")
+                    print(f"{color_tabla_par}El producto se pidio el día {calcular_tiempo}{terminar_color}")
                 elif opcion_stock == "2":
                     stock = int(input(f"{color_tabla_par}Ingrese la cantidad a retirar: {terminar_color}"))
                     producto["stock"] -= stock
