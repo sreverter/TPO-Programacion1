@@ -22,24 +22,24 @@ categorias = [
 
 # Referencia de productos
 #ID, ID_CATEGORIA, NOMBRE, ID_PROVEEDOR, STOCK, PRECIO, status (activo/inactivo)
-productos = [
-    [1, 1, "Leche entera 1L", 1, 500, 3000, True],
-    [2, 2, "Pechuga de pollo 1kg", 2, 200, 4500, True],
-    [3, 3, "Agua mineral 500ml", 3, 1000, 1500, True],
-    [4, 4, "Papas fritas 100g", 4, 350, 1500, True],
-    [5, 5, "Manzana roja 1kg", 5, 250, 2000, True],
-    [6, 1, "Yogur natural 200g", 6, 300, 1200, True],
-    [7, 2, "Carne vacuna 1kg", 7, 180, 6000, False],
-    [8, 3, "Jugo de naranja 1L", 8, 400, 2500, True],
-    [9, 4, "Galletitas saladas", 9, 500, 1700, False],
-    [10, 5, "Banana 1kg", 10, 220, 1800, True],
-    [11, 1, "Queso cremoso 500g", 1, 150, 3500, True],
-    [12, 2, "Chorizo 500g", 2, 100, 3200, False],
-    [13, 3, "Cerveza rubia 1L", 3, 250, 3500, True],
-    [14, 4, "Alfajor chocolate", 4, 600, 800, True],
-    [15, 5, "Tomate 1kg", 5, 300, 2200, False]
-]
 
+productos = [
+    {"id": 1, "id_categoria": 1, "nombre": "Leche entera 1L", "id_proveedor": 1, "stock": 500, "precio": 3000, "status": True},
+    {"id": 2, "id_categoria": 2, "nombre": "Pechuga de pollo 1kg", "id_proveedor": 2, "stock": 200, "precio": 4500, "status": True},
+    {"id": 3, "id_categoria": 3, "nombre": "Agua mineral 500ml", "id_proveedor": 3, "stock": 1000, "precio": 1500, "status": True},
+    {"id": 4, "id_categoria": 4, "nombre": "Papas fritas 100g", "id_proveedor": 4, "stock": 350, "precio": 1500, "status": True},
+    {"id": 5, "id_categoria": 5, "nombre": "Manzana roja 1kg", "id_proveedor": 5, "stock": 250, "precio": 2000, "status": True},
+    {"id": 6, "id_categoria": 1, "nombre": "Yogur natural 200g", "id_proveedor": 6, "stock": 300, "precio": 1200, "status": True},
+    {"id": 7, "id_categoria": 2, "nombre": "Carne vacuna 1kg", "id_proveedor": 7, "stock": 180, "precio": 6000, "status": False},
+    {"id": 8, "id_categoria": 3, "nombre": "Jugo de naranja 1L", "id_proveedor": 8, "stock": 400, "precio": 2500, "status": True},
+    {"id": 9, "id_categoria": 4, "nombre": "Galletitas saladas", "id_proveedor": 9, "stock": 500, "precio": 1700, "status": False},
+    {"id": 10, "id_categoria": 5, "nombre": "Banana 1kg", "id_proveedor": 10, "stock": 220, "precio": 1800, "status": True},
+    {"id": 11, "id_categoria": 1, "nombre": "Queso cremoso 500g", "id_proveedor": 1, "stock": 150, "precio": 3500, "status": True},
+    {"id": 12, "id_categoria": 2, "nombre": "Chorizo 500g", "id_proveedor": 2, "stock": 100, "precio": 3200, "status": False},
+    {"id": 13, "id_categoria": 3, "nombre": "Cerveza rubia 1L", "id_proveedor": 3, "stock": 250, "precio": 3500, "status": True},
+    {"id": 14, "id_categoria": 4, "nombre": "Alfajor chocolate", "id_proveedor": 4, "stock": 600, "precio": 800, "status": True},
+    {"id": 15, "id_categoria": 5, "nombre": "Tomate 1kg", "id_proveedor": 5, "stock": 300, "precio": 2200, "status": False}
+]
 # usuarios hardcodeados
 usuarios = [
     [1, "admin", "1234", "admin"],

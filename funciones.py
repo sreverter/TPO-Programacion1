@@ -17,27 +17,28 @@ def buscar_id(matriz, id_buscar):
             return fila
     return None
 
-def mostrar_tabla(matriz, columnas, opcion, inactivos):
+def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
     if (opcion == 0):  # Si es productos
-        for i in columnas:
+        claves_diccionario = list(matriz[1].keys())
+        for i in claves_diccionario:
             print(f"{negrita}{color_tabla_par}|{i:<21}|{terminar_color}", end="")
         print()
         for fila in matriz:
             if inactivos == True:
-                if fila[0] % 2 == 0:
+                if fila["id"] % 2 == 0:
                     for i in fila:
-                        print(f"{color_tabla_par}|{i:<21}|{terminar_color}", end="")
+                        print(f"{color_tabla_par}|{fila[i]:<21}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        print(f"{color_tabla_inpar}|{i:<21}|{terminar_color}", end="")
+                        print(f"{color_tabla_inpar}|{fila[i]:<21}|{terminar_color}", end="")
                 print()
             elif fila[6] == True:
                 if fila[0] % 2 == 0:
                     for i in fila:
-                        print(f"{color_tabla_par}|{i:<21}|{terminar_color}", end="")
+                        print(f"{color_tabla_par}|{fila[i]:<21}|{terminar_color}", end="")
                 else:
                     for i in fila:
-                        print(f"{color_tabla_inpar}|{i:<21}|{terminar_color}", end="")
+                        print(f"{color_tabla_inpar}|{fila[i]:<21}|{terminar_color}", end="")
                 print()
         print()
     elif (opcion == 1):  # Si es proveedores
@@ -95,6 +96,7 @@ def agregar_registro(matriz, columnas, opcion):
         if categoria_producto.upper() == "N":
             print("Debe agregar una categoría antes de agregar un producto.")
             return
+        nuevo_producto.append(int(categoria_producto))
         nombre_producto = input("Ingrese el nombre del producto: ")
         nuevo_producto.append(nombre_producto)
         mostrar_tabla(data.proveedores, descripcion_columnas_proveedores, 1)

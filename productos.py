@@ -33,21 +33,26 @@ def menu_productos():
             while ordenar != "4":
                 ordenar = input("Desea ordenar la tabla por alguna columna? 1-Nombre de producto | 2-Precio | 3-Stock | 4-No: ")
                 if ordenar == "1":
-                    productos.sort(key=lambda x: x[2])
+                    productos.sort(key=lambda x: x["nombre"])
                     f.mostrar_tabla(productos, descripcion_columnas, producto)
                 elif ordenar == "2":
-                    orden = input("De menor a mayor (1) o mayor a menor (2): ")
-                    if orden == "1":
-                        productos.sort(key=lambda x: x[5])
-                    elif orden == "2":
-                        productos.sort(key=lambda x: x[5], reverse=True)
-                    f.mostrar_tabla(productos, descripcion_columnas, producto)
+                    orden = ""
+                    while orden != "1" and orden != "2":
+                        orden = input("De menor a mayor (1) o mayor a menor (2): ")
+                        if orden == "1":
+                            producto_precio_menor = sorted(productos, key=lambda x: x["precio"])
+                            f.mostrar_tabla(producto_precio_menor, descripcion_columnas, producto)
+                        elif orden == "2":
+                            productos_precio_mayor = sorted(productos, key=lambda x: x["precio"], reverse=True)
+                            f.mostrar_tabla(productos_precio_mayor, descripcion_columnas, producto)
+                        else:
+                            print("Opción inválida. Intente nuevamente.")
                 elif ordenar == "3":
                     orden = input("De menor a mayor (1) o mayor a menor (2): ")
                     if orden == "1":
-                        productos.sort(key=lambda x: x[4])
+                        productos.sort(key=lambda x: x["stock"])
                     elif orden == "2":
-                        productos.sort(key=lambda x: x[4], reverse=True)
+                        productos.sort(key=lambda x: x["stock"], reverse=True)
                     f.mostrar_tabla(productos, descripcion_columnas, producto)
         elif opcion == "2":
             print("Desea hacer una busqueda de un solo producto por ID o una busqueda parcial?")
