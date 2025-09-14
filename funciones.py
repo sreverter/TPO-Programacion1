@@ -109,13 +109,13 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
                 if fila[0] % 2 == 0:
                     for i in fila:
                         if i is True:
-                            print(f"{color_tabla_par}|{"Activo":<25}|{terminar_color}", end="")
+                            print(f"{color_tabla_par}|{'Activo':<25}|{terminar_color}", end="")
                         else:
                             print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
                 else:
                     for i in fila:
                         if i is True:
-                            print(f"{color_tabla_impar}|{"Activo":<25}|{terminar_color}", end="")
+                            print(f"{color_tabla_impar}|{'Activo':<25}|{terminar_color}", end="")
                         else:
                             print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
                 print()
