@@ -23,6 +23,14 @@ def buscar_id(matriz, id_buscar, opcion):
     return None
 
 def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
+    if opcion == 0:
+        tabla_entidad_desactivada = list(filter(lambda x: x["status"] == False, matriz))
+        for diccionario in tabla_entidad_desactivada:
+            print(diccionario, end="\n")
+    elif opcion == 1:
+        tabla_entidad_desactivada = list(filter(lambda x: x[5] == False, matriz)) 
+        for diccionario in tabla_entidad_desactivada:
+            print(diccionario, end="\n")
     if (opcion == 0):  # Si es productos
         claves_diccionario = list(matriz[1].keys())
         for i in claves_diccionario:
@@ -37,8 +45,8 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
                     for i in fila:
                         print(f"{color_tabla_inpar}|{fila[i]:<21}|{terminar_color}", end="")
                 print()
-            elif fila[6] == True:
-                if fila[0] % 2 == 0:
+            elif fila["status"] == True:
+                if fila["id"] % 2 == 0:
                     for i in fila:
                         print(f"{color_tabla_par}|{fila[i]:<21}|{terminar_color}", end="")
                 else:
@@ -85,37 +93,51 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
 
 def desactivar_registro(matriz, id_desactivar, opcion):
     fila = buscar_id(matriz, id_desactivar, opcion)
-    if fila:
-        fila["status"] = False
-        print("Registro desactivado correctamente.")
+    if opcion == 0:  # Si es productos
+        if fila:
+            fila["status"] = False
+            print("Registro desactivado correctamente.")
+        else:
+            print("No se encontró el registro.")
+    elif opcion == 1:  # Si es proveedores
+        if fila:
+            fila[5] = False
+            print("Registro desactivado correctamente.")
+        else:
+            print("No se encontró el registro.")
     else:
-        print("No se encontró el registro.")
+        if fila:
+            matriz.remove(fila)
+            print("Registro eliminado correctamente.")
 
 def agregar_registro(matriz, columnas, opcion):
     if opcion == 0:  # Si es productos
         nuevo_producto = {}
-        nuevo_producto["id"] = matriz[-1]["id"] + 1 if matriz else 1
+        nuevo_producto_id = matriz[-1]["id"] + 1 if matriz else 1
         mostrar_tabla(data.categorias, descripcion_columnas_categorias, 2)
         categoria_producto = input("ingrese el ID de la categoria de producto es: (Escriba N si no es ninguna de las categorias listadas) ")
         if categoria_producto.upper() == "N":
             print("Debe agregar una categoría antes de agregar un producto.")
             return
-        nuevo_producto["id_categoria"]=(int(categoria_producto))
         nombre_producto = input("Ingrese el nombre del producto: ")
-        nuevo_producto["nombre"]=(nombre_producto)
         mostrar_tabla(data.proveedores, descripcion_columnas_proveedores, 1)
         nombre_proveedor = input("Ingrese el nombre del proveedor: ")
         proveedor_id = buscar_proveedor(nombre_proveedor)
         if proveedor_id is None:
             print("Proveedor no encontrado.")
             return matriz
-        nuevo_producto["id_proveedor"]=(proveedor_id)
         stock = int(input("Ingrese el stock: "))
         precio = float(input("Ingrese el precio: "))
-        nuevo_producto["stock"]=(stock)
-        nuevo_producto["precio"]=(precio)
-        nuevo_producto["status"]=(True) #asumimos que es esta activo al agregarse, despues podriamos cambiarlo
-
+        nuevo_producto = {
+            'id' : nuevo_producto_id,
+            "id_categoria" : int(categoria_producto),
+            "nombre" : nombre_producto,
+            "id_proveedor" : proveedor_id,
+            "stock" : stock,
+            "precio" : precio,
+            "status" : True
+        }
+        print(nuevo_producto)
         matriz.append(nuevo_producto)
         print(nuevo_producto)
         mostrar_tabla(matriz, columnas, opcion)
@@ -130,8 +152,6 @@ def agregar_registro(matriz, columnas, opcion):
         nuevo_proveedor.append(plazo_entrega)
         cuit_proveedores = sorted([fila[4] for fila in matriz])
         while len(cuit_proveedores) != nuevo_proveedor[0]:
-            print(len(cuit_proveedores))
-            print(nuevo_proveedor[0])
             cuit = input("Ingrese el CUIT: ")
             patron = re.compile('\d{2}-\d{8}-\d')
             if patron.match(cuit):
@@ -145,12 +165,18 @@ def agregar_registro(matriz, columnas, opcion):
         nuevo_proveedor.append(True)
 
         matriz.append(nuevo_proveedor)
-
         mostrar_tabla(matriz, columnas, opcion)
         print("Proveedor agregado correctamente.")
-    elif opcion == 2:  # Si es categorias o stock
+    elif opcion == 2:  # Si es categorias
         nueva_categoria = [matriz[-1][0] + 1 if matriz else 1]
+        nombres_categorias = []
+        for i in data.categorias:
+            nombres_categorias.append(i[1])
+        conjunto_categorias = set(nombres_categorias)
         nombre_categoria = input("Ingrese el nombre de la categoría: ") 
+        while nombre_categoria.capitalize() in conjunto_categorias:
+            print("La categoría ya existe. Ingrese un nombre único.")
+            nombre_categoria = input("Ingrese el nombre de la categoría: ")
         nueva_categoria.append(nombre_categoria)
         matriz.append(nueva_categoria)
         mostrar_tabla(matriz, columnas, opcion)

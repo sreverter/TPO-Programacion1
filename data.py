@@ -13,11 +13,11 @@ proveedores = [
 
 
 categorias = [
-    [1, "Lácteos"],
+    [1, "Lacteos"],
     [2, "Carnes"],
     [3, "Bebidas"],
     [4, "Snacks"],
-    [5, "Frutas y Verduras"]
+    [5, "Frutas y verduras"]
 ]
 
 # Referencia de productos

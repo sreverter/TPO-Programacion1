@@ -1,7 +1,7 @@
 import data
 import funciones as f
 
-descripcion_columnas = ["ID", "NOMBRE", "VENTA_MINIMA", "PLAZO_ENTREGA(dias)", "CUIT", "ACTIVO"]
+descripcion_columnas = ["ID", "NOMBRE", "VENTA_MINIMA", "PLAZO_ENTREGA(dias)", "CUIT", "STATUS"]
 proveedores = data.proveedores
 
 def menu_proveedores():
@@ -22,7 +22,13 @@ def menu_proveedores():
         opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
 
         if opcion == "1":
-            f.mostrar_tabla(proveedores, descripcion_columnas, proveedor)
+            ver_inactivos = input("Desea ver los productos inactivos? (s/n): ")
+            if ver_inactivos.lower() == "s":
+                ver_inactivos = True
+                f.mostrar_tabla(proveedores, descripcion_columnas, proveedor, ver_inactivos)
+            else:
+                ver_inactivos = False
+                f.mostrar_tabla(proveedores, descripcion_columnas, proveedor, ver_inactivos)
         elif opcion == "2":
             print("Desea hacer una busqueda de un solo proveedor por ID o una busqueda parcial?")
             opcion_busqueda = int(input("Ingrese 1 para busqueda por ID o 2 para busqueda parcial: "))
