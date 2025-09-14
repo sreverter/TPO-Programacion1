@@ -177,7 +177,7 @@ def agregar_registro(matriz, columnas, opcion):
         nuevo_producto = {}
         nuevo_producto_id = matriz[-1]["id"] + 1 if matriz else 1
         mostrar_tabla(data.categorias, descripcion_columnas_categorias, 2)
-        categoria_producto = input("ingrese el ID de la categoria de producto es: (Escriba N si no es ninguna de las categorias listadas) ")
+        categoria_producto = input(f"{color_tabla_par}ingrese el ID de la categoria de producto es: (Escriba N si no es ninguna de las categorias listadas) ")
         if categoria_producto.upper() == "N":
             print("Debe agregar una categoría antes de agregar un producto.")
             return
@@ -203,10 +203,10 @@ def agregar_registro(matriz, columnas, opcion):
         matriz.append(nuevo_producto)
         print(nuevo_producto)
         mostrar_tabla(matriz, columnas, opcion)
-        print("Producto agregado correctamente.")
+        print(f"Producto agregado correctamente.{terminar_color}")
     elif opcion == 1:  # Si es proveedores
         nuevo_proveedor = [matriz[-1][0] + 1 if matriz else 1]
-        nombre_proveedor = input("Ingrese el nombre del proveedor: ")
+        nombre_proveedor = input(f"{color_tabla_par}Ingrese el nombre del proveedor: ")
         nuevo_proveedor.append(nombre_proveedor)
         venta_minima = int(input("Ingrese la venta mínima: "))
         nuevo_proveedor.append(venta_minima)
@@ -228,21 +228,21 @@ def agregar_registro(matriz, columnas, opcion):
 
         matriz.append(nuevo_proveedor)
         mostrar_tabla(matriz, columnas, opcion)
-        print("Proveedor agregado correctamente.")
+        print(f"Proveedor agregado correctamente.{terminar_color}")
     elif opcion == 2:  # Si es categorias
         nueva_categoria = [matriz[-1][0] + 1 if matriz else 1]
         nombres_categorias = []
         for i in data.categorias:
             nombres_categorias.append(i[1])
         conjunto_categorias = set(nombres_categorias)
-        nombre_categoria = input("Ingrese el nombre de la categoría: ") 
+        nombre_categoria = input(f"{color_tabla_par}Ingrese el nombre de la categoría: ") 
         while nombre_categoria.capitalize() in conjunto_categorias:
             print("La categoría ya existe. Ingrese un nombre único.")
             nombre_categoria = input("Ingrese el nombre de la categoría: ")
         nueva_categoria.append(nombre_categoria)
         matriz.append(nueva_categoria)
         mostrar_tabla(matriz, columnas, opcion)
-        print("Categoría agregada correctamente.")
+        print(f"Categoría agregada correctamente.{terminar_color}")
 
 
 
@@ -259,16 +259,16 @@ def buscar_proveedor(busqueda):
 
 def busqueda_proveedor_parcial():
     proveedores = data.proveedores
-    busqueda = input("Escriba la letra o las primeras 3 letras de los proveedores que desea buscar: ")
+    busqueda = input(f"{color_tabla_par}Escriba la letra o las primeras 3 letras de los proveedores que desea buscar: ")
     patron = re.compile(busqueda, re.IGNORECASE)
 
     resultados = [fila for fila in proveedores if patron.search(fila[1])]
     if resultados != 0:
-        print("Estos son los resultados encontrados para su búsqueda: \n")
+        print(f"Estos son los resultados encontrados para su búsqueda: \n{terminar_color}")
         for fila in resultados:
-            print(fila)
+            print(f"{color_tabla_par}-Nombre {fila[1]} - Entrega minima: {fila[2]} unidades - Plazo de entrega: {fila[3]} dias{terminar_color}")
     else:
-        print("No se encontraron resultados.")
+        print(f"{color_tabla_par}No se encontraron resultados.{terminar_color}")
 
     # return resultados
     # dejo comentada la ultima linea porque no se si queremos almacenar los resultados de la busqueda parcial. quizas es algo meramente informativo
@@ -276,69 +276,69 @@ def busqueda_proveedor_parcial():
 
 def busqueda_productos_parcial():
     productos = data.productos
-    busqueda = input("Escriba la letra o las primeras 3 letras de los productos que desea buscar: ")
+    busqueda = input(f"{color_tabla_par}Escriba la letra o las primeras 3 letras de los productos que desea buscar: ")
     patron = re.compile(busqueda, re.IGNORECASE)
 
-    resultados = [fila for fila in productos if patron.search(fila[2])]
+    resultados = [fila for fila in productos if patron.search(fila["nombre"])]
     if resultados != 0:
-        print("Estos son los resultados encontrados para su búsqueda: \n")
+        print(f"Estos son los resultados encontrados para su búsqueda: \n{terminar_color}")
         for fila in resultados:
-            print(fila)
+            print(f"{color_tabla_par}-Nombre {fila["nombre"]} - Stock: {fila["stock"]} unidades - Precio: {fila["precio"]} pesos{terminar_color}")
     else:
-        print("No se encontraron resultados.")
+        print(f"{color_tabla_par}No se encontraron resultados.{terminar_color}")
 
     # return resultados
     # dejo comentada la ultima linea porque no se si queremos almacenar los resultados de la busqueda parcial. quizas es algo meramente informativo
 
 def modificar_registro(matriz, columnas, opcion):
     if opcion == 0:  # Si es productos
-        id_modificar = int(input("Ingrese el ID del producto a modificar: "))
+        id_modificar = int(input(f"{color_tabla_par}Ingrese el ID del producto a modificar: {terminar_color}"))
         producto = buscar_id(matriz, id_modificar, opcion)
         if producto:
-            print("Producto encontrado:")
+            print(f"{color_tabla_par}Producto encontrado:{terminar_color}")
             print(producto)
-            opcion_modificar = int(input("Qué desea modificar? 1-Nombre del producto | 2-Nombre del proveedor | 3-Stock | 4-Precio: "))
+            opcion_modificar = int(input(f"{color_tabla_par}Qué desea modificar? 1-Nombre del producto | 2-Nombre del proveedor | 3-Stock | 4-Precio: {terminar_color}"))
             if opcion_modificar == 1:
-                nombre_producto = input("Ingrese el nuevo nombre del producto: ")
+                nombre_producto = input(f"{color_tabla_par}Ingrese el nuevo nombre del producto: {terminar_color}")
                 producto["nombre"] = nombre_producto
             elif opcion_modificar == 2:
-                nombre_proveedor = input("Ingrese el nuevo nombre del proveedor: ")
+                nombre_proveedor = input(f"{color_tabla_par}Ingrese el nuevo nombre del proveedor: {terminar_color}")
                 producto["id_proveedor"] = nombre_proveedor
             elif opcion_modificar == 3:
-                opcion_stock = input("Esta 1-Ingresando stock o 2-Retirando stock?: ")
+                opcion_stock = input(f"{color_tabla_par}Esta 1-Ingresando stock o 2-Retirando stock?: {terminar_color}")
                 if opcion_stock == "1":
-                    stock = int(input("Ingrese la cantidad a ingresar: "))
+                    stock = int(input(f"{color_tabla_par}Ingrese la cantidad a ingresar: {terminar_color}"))
                     producto["stock"] += stock
                     movimiento_stock(0, stock, producto["nombre"])  # Registro de movimiento de ingreso
                 elif opcion_stock == "2":
-                    stock = int(input("Ingrese la cantidad a retirar: "))
+                    stock = int(input(f"{color_tabla_par}Ingrese la cantidad a retirar: {terminar_color}"))
                     producto["stock"] -= stock
                     movimiento_stock(1, stock, producto[2])  # Registro de movimiento de egreso
             elif opcion_modificar == 4:
-                precio = float(input("Ingrese el nuevo precio: "))
+                precio = float(input(f"{color_tabla_par}Ingrese el nuevo precio: {terminar_color}"))
                 producto["precio"] = precio
             mostrar_tabla(matriz, columnas, opcion)
-            print("Producto modificado correctamente.")
+            print(f"{color_tabla_par}Producto modificado correctamente.{terminar_color}")
         else:
-            print("Producto no encontrado.")
+            print(f"{color_tabla_par}Producto no encontrado.{terminar_color}")
     elif opcion == 1:  # Si es proveedores
-        id_modificar = int(input("Ingrese el ID del proveedor a modificar: "))
+        id_modificar = int(input(f"{color_tabla_par}Ingrese el ID del proveedor a modificar: {terminar_color}"))
         proveedor = buscar_id(matriz, id_modificar)
         if proveedor:
-            print("Proveedor encontrado:")
+            print(f"{color_tabla_par}Proveedor encontrado:{terminar_color}")
             print(proveedor)
-            nombre_proveedor = input("Ingrese el nuevo nombre del proveedor: ")
+            nombre_proveedor = input(f"{color_tabla_par}Ingrese el nuevo nombre del proveedor: {terminar_color}")
             proveedor[1] = nombre_proveedor
-            venta_minima = int(input("Ingrese la nueva venta mínima: "))
+            venta_minima = int(input(f"{color_tabla_par}Ingrese la nueva venta mínima: "))
             proveedor[2] = venta_minima
             plazo_entrega = int(input("Ingrese el nuevo plazo de entrega (días): "))
             proveedor[3] = plazo_entrega
             cuit = input("Ingrese el nuevo CUIT: ")
             proveedor[4] = cuit
             mostrar_tabla(matriz, columnas, opcion)
-            print("Proveedor modificado correctamente.")
+            print(f"Proveedor modificado correctamente.{terminar_color}")
         else:
-            print("Proveedor no encontrado.")
+            print(f"{color_tabla_par}Proveedor no encontrado.{terminar_color}")
     return matriz
 
 def movimiento_stock(opcion, stock, producto):

@@ -1,5 +1,5 @@
 import data
-import funciones as f
+import funciones as scripts
 
 descripcion_columnas = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "STATUS"]
 productos = data.productos
@@ -23,56 +23,59 @@ def menu_productos():
         opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
 
         if opcion == "1":
-            ver_inactivos = input("Desea ver los productos inactivos? (s/n): ")
+            ver_inactivos = input(f"{color_inicio}Desea ver los productos inactivos? (s/n): {terminar_color}")
             if ver_inactivos.lower() == "s":
                 ver_inactivos = True
-                f.mostrar_tabla(productos, descripcion_columnas, producto, ver_inactivos)
+                scripts.mostrar_tabla(productos, descripcion_columnas, producto, ver_inactivos)
             else:
                 ver_inactivos = False
-                f.mostrar_tabla(productos, descripcion_columnas, producto, ver_inactivos)
+                scripts.mostrar_tabla(productos, descripcion_columnas, producto, ver_inactivos)
             while ordenar != "4":
-                ordenar = input("Desea ordenar la tabla por alguna columna? 1-Nombre de producto | 2-Precio | 3-Stock | 4-No: ")
+                ordenar = input(f"{color_inicio}Desea ordenar la tabla por alguna columna? 1-Nombre de producto | 2-Precio | 3-Stock | 4-No: {terminar_color}")
                 if ordenar == "1":
                     productos.sort(key=lambda x: x["nombre"])
-                    f.mostrar_tabla(productos, descripcion_columnas, producto)
+                    scripts.mostrar_tabla(productos, descripcion_columnas, producto)
                 elif ordenar == "2":
                     orden = ""
                     while orden != "1" and orden != "2":
-                        orden = input("De menor a mayor (1) o mayor a menor (2): ")
+                        orden = input(f"{color_inicio}De menor a mayor (1) o mayor a menor (2): {terminar_color}")
                         if orden == "1":
                             producto_precio_menor = sorted(productos, key=lambda x: x["precio"])
-                            f.mostrar_tabla(producto_precio_menor, descripcion_columnas, producto)
+                            scripts.mostrar_tabla(producto_precio_menor, descripcion_columnas, producto)
                         elif orden == "2":
                             productos_precio_mayor = sorted(productos, key=lambda x: x["precio"], reverse=True)
-                            f.mostrar_tabla(productos_precio_mayor, descripcion_columnas, producto)
+                            scripts.mostrar_tabla(productos_precio_mayor, descripcion_columnas, producto)
                         else:
-                            print("Opción inválida. Intente nuevamente.")
+                            print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
                 elif ordenar == "3":
-                    orden = input("De menor a mayor (1) o mayor a menor (2): ")
+                    orden = input(f"{color_inicio}De menor a mayor (1) o mayor a menor (2): {terminar_color}")
                     if orden == "1":
                         productos.sort(key=lambda x: x["stock"])
                     elif orden == "2":
                         productos.sort(key=lambda x: x["stock"], reverse=True)
-                    f.mostrar_tabla(productos, descripcion_columnas, producto)
+                    scripts.mostrar_tabla(productos, descripcion_columnas, producto)
 
         elif opcion == "2":
-            print("Desea hacer una busqueda de un solo producto por ID o una busqueda parcial?")
-            opcion_busqueda = int(input("Ingrese 1 para busqueda por ID o 2 para busqueda parcial: "))
-            if opcion_busqueda == 1:
-                id_buscar = int(input("Ingrese ID: "))
-                print(f.buscar_id(productos, id_buscar, producto))
-            elif opcion_busqueda == 2:
-                print(f.busqueda_productos_parcial())
+            print(f"{color_inicio}Desea hacer una busqueda de un solo producto por ID o una busqueda parcial?{terminar_color}")
+            opcion_busqueda = input(f"{color_inicio}Ingrese 1 para busqueda por ID o 2 para busqueda parcial: {terminar_color}")
+            if opcion_busqueda.isdigit() == False:
+                print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
+            elif opcion_busqueda == "1":
+                id_buscar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+                resultado_busqueda_id = scripts.buscar_id(productos, id_buscar, producto)
+                print(f"{color_inicio}El producto de ID {id_buscar} es: {resultado_busqueda_id["nombre"]} , este tiene un stock de {resultado_busqueda_id["stock"]} unidades y un precio de {resultado_busqueda_id["precio"]} pesos.{terminar_color}")
+            elif opcion_busqueda == "2":
+                resultado_busqueda_id = scripts.busqueda_productos_parcial()
 
         elif opcion == "3":
-            f.agregar_registro(productos, descripcion_columnas, producto)
+            scripts.agregar_registro(productos, descripcion_columnas, producto)
 
         elif opcion == "4":
-            f.modificar_registro(productos, descripcion_columnas, producto)
+            scripts.modificar_registro(productos, descripcion_columnas, producto)
 
         elif opcion == "5":
-            id_eliminar = int(input("Ingrese ID: "))
-            f.desactivar_registro(productos, id_eliminar, producto)
+            id_eliminar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+            scripts.desactivar_registro(productos, id_eliminar, producto)
 
         elif opcion == "6":
             break
