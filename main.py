@@ -1,4 +1,4 @@
-import funciones as f
+import funciones as scripts
 import data as data
 
 import productos
@@ -8,7 +8,7 @@ import categorias
 def main():
     titulo_sistema = " Sistema de Inventario "
     screen = f'|{titulo_sistema:-^160}|'
-    funciones = " 1: Productos | 2: Proveedores | 3: Categorías | 4: Salir "
+    funciones = " 1: Productos | 2: Proveedores | 3: Categorías | 4: Estadisticas Generales | 5: Salir"
     texto_opcion = "Opción:"
     texto_error = "Opción inválida. Intente nuevamente."
     texto_salida = "Saliendo..."
@@ -27,8 +27,10 @@ def main():
         elif opcion == "3":
             categorias.menu_categorias() #aca podriamos agregar una nueva categoria de productos
 #        elif opcion == "":
-#            print("Sistema de usuarios aún no implementado.") #aca podriamos administrar a los usuarios (no se si es necesario, depende como lo implementemos)
+#        print("Sistema de usuarios aún no implementado.") #aca podriamos administrar a los usuarios (no se si es necesario, depende como lo implementemos)
         elif opcion == "4":
+            scripts.estadisticas()
+        elif opcion == "5":
             print(f"{color_inicio}{texto_salida:<160}{terminar_color}")
             break
         else:

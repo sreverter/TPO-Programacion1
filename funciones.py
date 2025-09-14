@@ -310,10 +310,21 @@ def modificar_registro(matriz, columnas, opcion):
                     stock = int(input(f"{color_tabla_par}Ingrese la cantidad a ingresar: {terminar_color}"))
                     producto["stock"] += stock
                     movimiento_stock(0, stock, producto["nombre"])  # Registro de movimiento de ingreso
+                    calcular_tiempo = calcular_tiempo_pedido(buscar_id(data.proveedores, producto["id_proveedor"], 1)[3])
+                    print(f"{color_tabla_par}El producto llegará el día {calcular_tiempo}{terminar_color}")
                 elif opcion_stock == "2":
                     stock = int(input(f"{color_tabla_par}Ingrese la cantidad a retirar: {terminar_color}"))
                     producto["stock"] -= stock
-                    movimiento_stock(1, stock, producto[2])  # Registro de movimiento de egreso
+                    if producto["stock"] < 0:
+                        print(f"{color_tabla_par}No hay suficiente stock. El stock actual es {producto["stock"] + stock}.{terminar_color}")
+                        producto["stock"] += stock  # Revertir el cambio
+                    elif producto["stock"] <= 30:
+                        print(f"{color_tabla_par} El stock actual esta por debajo del minimo requerido (30 unidades). El stock actual es {producto["stock"]}.{terminar_color}")
+                        recordar_tiempo_envio = calcular_tiempo_entrega(buscar_id(data.proveedores, producto["id_proveedor"], 1)[3])
+                        print(f"{color_tabla_par}Recuerde que pidiendo hoy para re abastecer el stock los productos llegaran recien el dia: {recordar_tiempo_envio}{terminar_color}") 
+                        movimiento_stock(1, stock, producto["nombre"]) 
+                    else:
+                        movimiento_stock(1, stock, producto["nombre"])  
             elif opcion_modificar == 4:
                 precio = float(input(f"{color_tabla_par}Ingrese el nuevo precio: {terminar_color}"))
                 producto["precio"] = precio
@@ -350,7 +361,41 @@ def movimiento_stock(opcion, stock, producto):
         cantidad = stock
     elif opcion == 1:  # Si es egreso
         tipo_movimiento = "Egreso"
-        cantidad = -stock
+        cantidad = stock
     fecha = datetime.date.today().strftime("%d-%m-%y")
     movimiento_stock.append((id_movimiento, tipo_movimiento, producto, cantidad, fecha))
     mostrar_tabla(movimiento_stock, descripcion_columnas, 2) 
+
+
+def estadisticas():
+    productos = data.productos
+    categorias = data.categorias
+    proveedores = data.proveedores
+
+    total_productos = len(productos)
+    total_categorias = len(categorias)
+    total_proveedores = len(proveedores)
+
+    producto_mas_caro = max(productos, key=lambda x: x["precio"])
+    producto_mas_barato = min(productos, key=lambda x: x["precio"])
+    proveedor_mas_productos = max(proveedores, key=lambda x: sum(1 for prod in productos if prod["id_proveedor"] == x[0]))
+    categoria_mas_productos = max(categorias, key=lambda x: sum(1 for prod in productos if prod["id_categoria"] == x[0]))
+
+    print(f"{negrita}{color_tabla_par}Estadísticas del sistema:{terminar_color}")
+    print(f"{color_tabla_par}Total de productos: {total_productos}")
+    print(f"Total de categorías: {total_categorias}")
+    print(f"Total de proveedores: {total_proveedores}")
+    print(f"Producto más caro: {producto_mas_caro['nombre']} - Precio: {producto_mas_caro['precio']}")
+    print(f"Producto más barato: {producto_mas_barato['nombre']} - Precio: {producto_mas_barato['precio']}")
+    print(f"Proveedor con más productos: {proveedor_mas_productos[1]} - Cantidad de productos: {sum(1 for prod in productos if prod['id_proveedor'] == proveedor_mas_productos[0])}")
+    print(f"Categoría con más productos: {categoria_mas_productos[1]} - Cantidad de productos: {sum(1 for prod in productos if prod['id_categoria'] == categoria_mas_productos[0])}{terminar_color}")
+
+def calcular_tiempo_pedido(plazo_dias):
+    hoy = datetime.date.today()
+    fecha_entrega = hoy - datetime.timedelta(days=plazo_dias)
+    return fecha_entrega.strftime("%d-%m-%Y")
+
+def calcular_tiempo_entrega(plazo_dias):
+    hoy = datetime.date.today()
+    fecha_entrega = hoy + datetime.timedelta(days=plazo_dias)
+    return fecha_entrega.strftime("%d-%m-%Y")
