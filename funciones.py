@@ -296,7 +296,8 @@ def modificar_registro(matriz, columnas, opcion):
         producto = buscar_id(matriz, id_modificar, opcion)
         if producto:
             print(f"{color_tabla_par}Producto encontrado:{terminar_color}")
-            print(producto)
+            distribuidor = buscar_id(data.proveedores, producto["id_proveedor"], 1)
+            print(f"El producto es {producto["nombre"]}, del distribuidor {distribuidor[1]}, tiene un stock de {producto["stock"]} unidades y un precio de {producto["precio"]} pesos")
             opcion_modificar = int(input(f"{color_tabla_par}Qué desea modificar? 1-Nombre del producto | 2-Nombre del proveedor | 3-Stock | 4-Precio: {terminar_color}"))
             if opcion_modificar == 1:
                 nombre_producto = input(f"{color_tabla_par}Ingrese el nuevo nombre del producto: {terminar_color}")
