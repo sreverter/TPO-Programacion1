@@ -46,13 +46,14 @@ def menu_proveedores():
         elif opcion == "3":
             scripts.agregar_registro(proveedores, descripcion_columnas, proveedor)
         elif opcion == "4":
-            id_modificar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
-            fila = scripts.buscar_id(proveedores, id_modificar, proveedor)
-            if fila:
-                for i in range(1, len(descripcion_columnas)):
-                    fila[i] = input(f"Nuevo valor para {descripcion_columnas[i]} ({fila[i]}): ") or fila[i]
-            else:
-                print("Proveedor no encontrado.")
+            scripts.modificar_registro(proveedores, descripcion_columnas, proveedor)
+            # id_modificar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+            # fila = scripts.buscar_id(proveedores, id_modificar, proveedor)
+            # if fila:
+            #     for i in range(1, len(descripcion_columnas)):
+            #         fila[i] = input(f"Nuevo valor para {descripcion_columnas[i]} ({fila[i]}): ") or fila[i]
+            # else:
+            #     print("Proveedor no encontrado.")
         elif opcion == "5":
             break
         else:

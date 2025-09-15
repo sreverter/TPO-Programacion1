@@ -336,20 +336,36 @@ def modificar_registro(matriz, columnas, opcion):
             print(f"{color_tabla_par}Producto no encontrado.{terminar_color}")
     elif opcion == 1:  # Si es proveedores
         id_modificar = int(input(f"{color_tabla_par}Ingrese el ID del proveedor a modificar: {terminar_color}"))
-        proveedor = buscar_id(matriz, id_modificar)
+        proveedor = buscar_id(matriz, id_modificar, opcion)
         if proveedor:
-            print(f"{color_tabla_par}Proveedor encontrado:{terminar_color}")
-            print(proveedor[1])
-            nombre_proveedor = input(f"{color_tabla_par}Ingrese el nuevo nombre del proveedor: {terminar_color}")
-            proveedor[1] = nombre_proveedor
-            venta_minima = int(input(f"{color_tabla_par}Ingrese la nueva venta mínima: "))
-            proveedor[2] = venta_minima
-            plazo_entrega = int(input("Ingrese el nuevo plazo de entrega (días): "))
-            proveedor[3] = plazo_entrega
-            cuit = input("Ingrese el nuevo CUIT: ")
-            proveedor[4] = cuit
-            mostrar_tabla(matriz, columnas, opcion)
-            print(f"Proveedor modificado correctamente.{terminar_color}")
+            print(f"{color_tabla_par}Proveedor encontrado: {proveedor[1]}, con venta minima de {proveedor[2]} y entrega de {proveedor[3]} dias.{terminar_color}")
+            opcion_modificar = input(f"{color_tabla_par}Qué desea modificar? 1-Nombre del proveedor | 2-Venta minima | 3-Tiempo estimado de entrega | 4-CUIL:{terminar_color}")
+            if opcion_modificar == "1":
+                nombre_proveedor = input(f"{color_tabla_par}Ingrese el nuevo nombre del proveedor: {terminar_color}")
+                proveedor[1] = nombre_proveedor
+            elif opcion_modificar == "2":
+                venta_minima = int(input(f"{color_tabla_par}Ingrese la nueva venta mínima: {terminar_color}"))
+                proveedor[2] = venta_minima
+            elif opcion_modificar == "3":
+                plazo_entrega = int(input(f"{color_tabla_par}Ingrese el nuevo plazo de entrega (días): {terminar_color}"))
+                proveedor[3] = plazo_entrega
+            elif opcion_modificar == "4":
+                cambio = 0
+                cuit_proveedores = sorted([fila[4] for fila in matriz])
+                while cambio == 0:
+                    cuit = input(f"{color_tabla_par}Ingrese el CUIT: {terminar_color}")
+                    patron = re.compile('\d{2}-\d{8}-\d')  
+                    if patron.match(cuit):
+                        if cuit in cuit_proveedores:
+                            print(f"{color_tabla_par}El CUIT ya existe. Ingrese un CUIT único.{terminar_color}")
+                        else:
+                            cuit_proveedores.append(cuit)
+                            proveedor[4] = cuit
+                            print(f"{color_tabla_par}Proveedor modificado correctamente.{terminar_color}")
+                            cambio =+ 1
+                    else:
+                        print(f"{color_tabla_par}El formato de CUIT es incorrecto. Debe ser XX-XXXXXXXX-X.{terminar_color}")
+                mostrar_tabla(matriz, columnas, opcion)
         else:
             print(f"{color_tabla_par}Proveedor no encontrado.{terminar_color}")
     return matriz
