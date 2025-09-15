@@ -9,7 +9,7 @@ def menu_proveedores():
     proveedor = 1
     titulo_sistema = " Gestión de Proveedores "
     screen = f'|{titulo_sistema:-^160}|'
-    funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Salir "
+    funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5:Eliminar | 6: Salir "
     texto_opcion = "Opción:"
     texto_error = "Opción inválida. Intente nuevamente."
     color_inicio = '\033[37;44m'
@@ -55,6 +55,9 @@ def menu_proveedores():
             # else:
             #     print("Proveedor no encontrado.")
         elif opcion == "5":
+            id_eliminar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+            scripts.desactivar_registro(proveedores, id_eliminar, proveedor)
+        elif opcion == "6":
             break
         else:
             print(f'{color_error}{texto_error:<160}{terminar_color}')
