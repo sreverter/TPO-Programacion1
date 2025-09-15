@@ -56,8 +56,8 @@ def menu_productos():
                     scripts.mostrar_tabla(productos, descripcion_columnas, producto)
 
         elif opcion == "2":
-            print(f"{color_inicio}Desea hacer una busqueda de un solo producto por ID o una busqueda parcial?{terminar_color}")
-            opcion_busqueda = input(f"{color_inicio}Ingrese 1 para busqueda por ID o 2 para busqueda parcial: {terminar_color}")
+            print(f"{color_inicio}Desea hacer una busqueda de un solo producto por ID o una busqueda por las primeras letras?{terminar_color}")
+            opcion_busqueda = input(f"{color_inicio}Ingrese 1 para busqueda por ID o 2 para busqueda por letras: {terminar_color}")
             if opcion_busqueda.isdigit() == False:
                 print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
             elif opcion_busqueda == "1":

@@ -11,7 +11,7 @@ descripcion_columnas_categorias = ["ID", "CATEGORIA_NOMBRE"]
 descripcion_columnas_productos = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "STATUS"]
 descripcion_columnas_proveedores = ["ID", "Nombre", "Venta mínima", "Plazo de entrega(dias)", "CUIT", "Status"]
 
-def buscar_id(matriz, id_buscar, opcion):
+def buscar_id(matriz, id_buscar, opcion): #Esta funcion busca un ID y dependiendo si es un producto o un proveedor/ categoria devuelte una fila con distinto formato
     if opcion == 0:  # Si es productos
         for fila in matriz:
             if fila["id"] == id_buscar:
@@ -22,11 +22,11 @@ def buscar_id(matriz, id_buscar, opcion):
                 return fila
     return None
 
-def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
-    if opcion == 0:
-        tabla_entidad_desactivada = list(filter(lambda x: x["status"] == False, matriz))
-    elif opcion == 1:
-        tabla_entidad_desactivada = list(filter(lambda x: x[5] == False, matriz)) 
+def mostrar_tabla(matriz, columnas, opcion, inactivos=1): #Esta funcion se utiliza para imprimir todas las tablas del programa
+    # if opcion == 0:
+    #     tabla_entidad_desactivada = list(filter(lambda x: x["status"] == False, matriz))
+    # elif opcion == 1:
+    #     tabla_entidad_desactivada = list(filter(lambda x: x[5] == False, matriz)) 
     if (opcion == 0):  # Si es productos
         claves_diccionario = list(matriz[1].keys())
         for i in claves_diccionario:
@@ -153,7 +153,7 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
         print()
 
 
-def desactivar_registro(matriz, id_desactivar, opcion):
+def desactivar_registro(matriz, id_desactivar, opcion): #Esta funcion se utiliza para desactivar un registro
     fila = buscar_id(matriz, id_desactivar, opcion)
     if opcion == 0:  # Si es productos
         if fila:
@@ -172,7 +172,7 @@ def desactivar_registro(matriz, id_desactivar, opcion):
             matriz.remove(fila)
             print("Registro eliminado correctamente.")
 
-def agregar_registro(matriz, columnas, opcion):
+def agregar_registro(matriz, columnas, opcion): #Esta funcion se utiliza para agregar un registro y segun si es producto o proveedor/categoria cambia el tipo
     if opcion == 0:  # Si es productos
         nuevo_producto = {}
         nuevo_producto_id = matriz[-1]["id"] + 1 if matriz else 1
@@ -247,7 +247,7 @@ def agregar_registro(matriz, columnas, opcion):
 
 
 
-def buscar_proveedor(busqueda):
+def buscar_proveedor(busqueda): #esta funcion busca un proveedor teniendo en cuenta su nombre
     proveedores = data.proveedores
     busqueda = busqueda.upper() #lo pongo en mayuscula asi no hay errores de comparacion
 
@@ -257,7 +257,7 @@ def buscar_proveedor(busqueda):
             return fila[0]
     return None
 
-def busqueda_proveedor_parcial():
+def busqueda_proveedor_parcial(): #Esta funcion busca un proveedor por su nombre segun sus primeras letras
     proveedores = data.proveedores
     busqueda = input(f"{color_tabla_par}Escriba la letra o las primeras 3 letras de los proveedores que desea buscar: ")
     patron = re.compile(busqueda, re.IGNORECASE)
@@ -274,7 +274,7 @@ def busqueda_proveedor_parcial():
     # dejo comentada la ultima linea porque no se si queremos almacenar los resultados de la busqueda parcial. quizas es algo meramente informativo
 
 
-def busqueda_productos_parcial():
+def busqueda_productos_parcial(): #Esta funcion busca un producto por su nombre segun sus primeras letras
     productos = data.productos
     busqueda = input(f"{color_tabla_par}Escriba la letra o las primeras 3 letras de los productos que desea buscar: ")
     patron = re.compile(busqueda, re.IGNORECASE)
@@ -290,7 +290,7 @@ def busqueda_productos_parcial():
     # return resultados
     # dejo comentada la ultima linea porque no se si queremos almacenar los resultados de la busqueda parcial. quizas es algo meramente informativo
 
-def modificar_registro(matriz, columnas, opcion):
+def modificar_registro(matriz, columnas, opcion): #esta funcion permite modificar un registro, tanto de categoria, como de proveedores y producto
     if opcion == 0:  # Si es productos
         mostrar_tabla(matriz, columnas, opcion)
         id_modificar = int(input(f"{color_tabla_par}Ingrese el ID del producto a modificar: {terminar_color}"))
@@ -370,7 +370,7 @@ def modificar_registro(matriz, columnas, opcion):
             print(f"{color_tabla_par}Proveedor no encontrado.{terminar_color}")
     return matriz
 
-def movimiento_stock(opcion, stock, producto):
+def movimiento_stock(opcion, stock, producto): #funcion que genera una tabla de movimientos de stock que tambien marca que dia ocurrio
     descripcion_columnas = ["ID", "Tipo(Ingreso, Egreso)", "Producto", "cantidad", "fecha"]
     movimiento_stock = data.movimiento_stock
     id_movimiento = len(movimiento_stock) + 1
@@ -385,7 +385,7 @@ def movimiento_stock(opcion, stock, producto):
     mostrar_tabla(movimiento_stock, descripcion_columnas, 2) 
 
 
-def estadisticas():
+def estadisticas(): #funcion estadistica genera que da cantidad de productos, categorias y proveedores, entre otras
     productos = data.productos
     categorias = data.categorias
     proveedores = data.proveedores
@@ -408,12 +408,12 @@ def estadisticas():
     print(f"Proveedor con más productos: {proveedor_mas_productos[1]} - Cantidad de productos: {sum(1 for prod in productos if prod['id_proveedor'] == proveedor_mas_productos[0])}")
     print(f"Categoría con más productos: {categoria_mas_productos[1]} - Cantidad de productos: {sum(1 for prod in productos if prod['id_categoria'] == categoria_mas_productos[0])}{terminar_color}")
 
-def calcular_tiempo_pedido(plazo_dias):
+def calcular_tiempo_pedido(plazo_dias): #Esta funcion calcula que dia se hizo un pedido mediante que dia aumenta el stock teniendo en cuenta el tiempo de entrega del proveedor
     hoy = datetime.date.today()
     fecha_entrega = hoy - datetime.timedelta(days=plazo_dias)
     return fecha_entrega.strftime("%d-%m-%Y")
 
-def calcular_tiempo_entrega(plazo_dias):
+def calcular_tiempo_entrega(plazo_dias): #esta funcion calcula que dia llegara el producto si se pide ese mismo que se hizo el descenso de stock
     hoy = datetime.date.today()
     fecha_entrega = hoy + datetime.timedelta(days=plazo_dias)
     return fecha_entrega.strftime("%d-%m-%Y")

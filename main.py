@@ -5,6 +5,8 @@ import productos
 import proveedores
 import categorias
 
+#menu principal del CRUD en este se puede ir a las entidades, ver estadisticas generales y salir del programa
+
 def main():
     titulo_sistema = " Sistema de Inventario "
     screen = f'|{titulo_sistema:-^160}|'
