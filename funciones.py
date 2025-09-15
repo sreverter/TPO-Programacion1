@@ -401,3 +401,27 @@ def calcular_tiempo_entrega(plazo_dias):
     hoy = datetime.date.today()
     fecha_entrega = hoy + datetime.timedelta(days=plazo_dias)
     return fecha_entrega.strftime("%d-%m-%Y")
+
+
+def top_productos_vendidos():
+    movimientos = data.movimiento_stock
+    ventas = {}
+
+    # Contamos solo los movimientos, que serian ventas (creo)
+    for mov in movimientos:
+        if mov[1].lower() == "egreso":
+            producto = mov[2]
+            cantidad = mov[3]
+            ventas[producto] = ventas.get(producto, 0) + cantidad
+
+    if not ventas:
+        print(f"{color_tabla_par}No hay registros de ventas aún.{terminar_color}")
+        return
+
+    # utilizamos lambda para el ordenamiento de mayor a menor
+    top_ventas = sorted(ventas.items(), key=lambda x: x[1], reverse=True)[:3]
+
+    i = 1
+    for producto, cantidad in top_ventas:
+        print(f"{color_tabla_par}{i}. {producto} - Vendidos: {cantidad}{terminar_color}")
+        i += 1

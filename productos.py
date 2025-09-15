@@ -9,7 +9,7 @@ def menu_productos():
     producto = 0
     titulo_sistema = " Gestión de Productos "
     screen = f'|{titulo_sistema:-^160}|'
-    funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Eliminar | 6: Volver "
+    funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5: Eliminar | 6: Top vendidos | 7: Volver "
     texto_opcion = "Opción:"
     texto_error = "Opción inválida. Intente nuevamente."
     color_inicio = '\033[37;44m'
@@ -78,6 +78,10 @@ def menu_productos():
             scripts.desactivar_registro(productos, id_eliminar, producto)
 
         elif opcion == "6":
+            scripts.top_productos_vendidos()
+
+        elif opcion == "7":
             break
+
         else:
             print(f'{color_error}{texto_error:<160}{terminar_color}')
