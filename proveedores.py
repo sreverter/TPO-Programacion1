@@ -1,26 +1,63 @@
-#archivo de CRUD proveedores
-import funciones as f
-import data as data
+import data
+import funciones as scripts
 
-def proveedores(matriz):
-    descripcion_data = ["id", "nombre proveedor", "venta minima", "plazo de entrega"]
-    print("Lista de Proveedores:")
-    print(descripcion_data)
-    for fila in matriz:
-        print(fila)
+descripcion_columnas = ["ID", "NOMBRE", "VENTA_MINIMA", "PLAZO_ENTREGA(dias)", "CUIT", "STATUS"]
+proveedores = data.proveedores
 
-proveedores_data = data.proveedores
-proveedores(proveedores_data)
-desea_modificar = input("¿Desea modificar la matriz? (s/n): ").lower()
-if desea_modificar == "s":
-    cual_modifica = int(input("Ingrese el ID del proveedor a modificar: "))
-    proveedor_a_modificar = f.buscar_id(proveedores_data, cual_modifica)
-    if proveedor_a_modificar:
-        print("Proveedor encontrado:", proveedor_a_modificar)
-        nuevo_nombre = input("Ingrese el nuevo nombre del proveedor: ")
-        nueva_venta_minima = int(input("Ingrese la nueva venta mínima: "))
-        nuevo_plazo_entrega = int(input("Ingrese el nuevo plazo de entrega: "))
-        proveedor_a_modificar[1] = nuevo_nombre
-        proveedor_a_modificar[2] = nueva_venta_minima
-        proveedor_a_modificar[3] = nuevo_plazo_entrega 
-        print("Proveedor modificado:", proveedor_a_modificar)
+def menu_proveedores():
+
+    proveedor = 1
+    titulo_sistema = " Gestión de Proveedores "
+    screen = f'|{titulo_sistema:-^160}|'
+    funciones = " 1: Ver | 2: Buscar | 3: Agregar | 4: Modificar | 5:Eliminar | 6: Salir "
+    texto_opcion = "Opción:"
+    texto_error = "Opción inválida. Intente nuevamente."
+    color_inicio = '\033[37;44m'
+    terminar_color = '\033[0m'
+    negrita = '\033[1m'
+    color_error = '\033[37;41m'
+    while True:
+        print(f"{negrita}{color_inicio}{screen}{terminar_color}")
+        print(f'{color_inicio}|{funciones:^160}|')
+        opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
+
+        if type(opcion) != str:
+            print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
+
+        if opcion == "1":
+            ver_inactivos = input(f"{color_inicio}Desea ver los proveedores inactivos? (s/n): {terminar_color}")
+            if ver_inactivos.lower() == "s":
+                ver_inactivos = True
+                scripts.mostrar_tabla(proveedores, descripcion_columnas, proveedor, ver_inactivos)
+            else:
+                ver_inactivos = False
+                scripts.mostrar_tabla(proveedores, descripcion_columnas, proveedor, ver_inactivos)
+        elif opcion == "2":
+            print(f"{color_inicio}Desea hacer una busqueda de un solo proveedor por ID o una busqueda por primeras letras?")
+            opcion_busqueda = input(f"Ingrese 1 para busqueda por ID o 2 para busqueda por letras: {terminar_color}")
+            if opcion_busqueda.isdigit() == False:
+                print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
+            if opcion_busqueda == "1":
+                id_buscar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+                resultado_busqueda_id = scripts.buscar_id(proveedores, id_buscar, proveedor)
+                print(f"{color_inicio}El proveedor de ID {id_buscar} es: {resultado_busqueda_id[1]}, este tiene una venta mínima de {resultado_busqueda_id[2]} unidades y un plazo de entrega de {resultado_busqueda_id[3]} días.{terminar_color}")
+            elif opcion_busqueda == "2":
+                print(scripts.busqueda_proveedor_parcial())
+        elif opcion == "3":
+            scripts.agregar_registro(proveedores, descripcion_columnas, proveedor)
+        elif opcion == "4":
+            scripts.modificar_registro(proveedores, descripcion_columnas, proveedor)
+            # id_modificar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+            # fila = scripts.buscar_id(proveedores, id_modificar, proveedor)
+            # if fila:
+            #     for i in range(1, len(descripcion_columnas)):
+            #         fila[i] = input(f"Nuevo valor para {descripcion_columnas[i]} ({fila[i]}): ") or fila[i]
+            # else:
+            #     print("Proveedor no encontrado.")
+        elif opcion == "5":
+            id_eliminar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
+            scripts.desactivar_registro(proveedores, id_eliminar, proveedor)
+        elif opcion == "6":
+            break
+        else:
+            print(f'{color_error}{texto_error:<160}{terminar_color}')
