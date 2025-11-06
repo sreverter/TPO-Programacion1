@@ -11,28 +11,17 @@ descripcion_columnas_categorias = ["ID", "CATEGORIA_NOMBRE"]
 descripcion_columnas_productos = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "STATUS"]
 descripcion_columnas_proveedores = ["ID", "Nombre", "Venta mínima", "Plazo de entrega(dias)", "CUIT", "Status"]
 
-def buscar_id(matriz, id_buscar, opcion): #Esta funcion busca un ID y dependiendo si es un producto o un proveedor/ categoria devuelte una fila con distinto formato
-    if opcion == 0:  # Si es productos (LISTA de DICCIONARIOS)
-        for fila in matriz:
-            try:
-                # Accedemos al ID por CLAVE en diccionario
-                if fila["id"] == id_buscar:
-                    return fila
-            except KeyError:
-                # Si un diccionario no tiene clave "id", continuamos con siguiente
-                continue
+def buscar_id(matriz, id_buscar):
+
+    for fila in matriz:
+        try:
+            if fila["id"] == id_buscar:
+                return fila
+        except (KeyError, TypeError):
+            # Si no tiene clave "id" o hay error de tipo, continuamos
+            continue
                 
-    else:  # Si es proveedores o categorias (LISTA de LISTAS)
-        for fila in matriz:
-            try:
-                # Accedemos al ID por POSICION en lista
-                if fila[0] == id_buscar:
-                    return fila
-            except IndexError:
-                # Si una lista esta vacia (no tiene posición 0), continuamos
-                continue
-                
-    return None  # No se encontró el ID
+    return None
 
 def mostrar_tabla(matriz, columnas, opcion, inactivos=1): #Esta funcion se utiliza para imprimir todas las tablas del programa
     # if opcion == 0:
