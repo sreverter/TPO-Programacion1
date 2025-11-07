@@ -11,8 +11,7 @@ descripcion_columnas_categorias = ["ID", "CATEGORIA_NOMBRE"]
 descripcion_columnas_productos = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "STATUS"]
 descripcion_columnas_proveedores = ["ID", "Nombre", "Venta mínima", "Plazo de entrega(dias)", "CUIT", "Status"]
 
-def buscar_id(matriz, id_buscar):
-
+def buscar_id(matriz, id_buscar, opcion=None):
     for fila in matriz:
         try:
             if fila["id"] == id_buscar:
@@ -24,10 +23,6 @@ def buscar_id(matriz, id_buscar):
     return None
 
 def mostrar_tabla(matriz, columnas, opcion, inactivos=1): #Esta funcion se utiliza para imprimir todas las tablas del programa
-    # if opcion == 0:
-    #     tabla_entidad_desactivada = list(filter(lambda x: x["status"] == False, matriz))
-    # elif opcion == 1:
-    #     tabla_entidad_desactivada = list(filter(lambda x: x[5] == False, matriz)) 
     if (opcion == 0):  # Si es productos
         claves_diccionario = list(matriz[1].keys())
         for i in claves_diccionario:
@@ -40,11 +35,11 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1): #Esta funcion se utili
                         if i == "id_categoria" or i == "id_proveedor" or i == "status":
                             id_relacionado = fila[i]
                             if i == "id_categoria":
-                                categoria = buscar_id(data.categorias, id_relacionado, 2)
-                                print(f"{color_tabla_par}|{categoria[1]:<21}|{terminar_color}", end="")
+                                categoria = buscar_id(data.categorias, id_relacionado)
+                                print(f"{color_tabla_par}|{categoria['nombre']:<21}|{terminar_color}", end="")
                             elif i == "id_proveedor":
-                                proveedor = buscar_id(data.proveedores, id_relacionado, 1)
-                                print(f"{color_tabla_par}|{proveedor[1]:<21}|{terminar_color}", end="")
+                                proveedor = buscar_id(data.proveedores, id_relacionado)
+                                print(f"{color_tabla_par}|{proveedor['nombre']:<21}|{terminar_color}", end="")
                             elif i == "status":
                                 if fila["status"] == True:
                                     print(f"{color_tabla_par}|{'Activo':<21}|{terminar_color}", end="")
@@ -57,11 +52,11 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1): #Esta funcion se utili
                         if i == "id_categoria" or i == "id_proveedor" or i == "status":
                             id_relacionado = fila[i]
                             if i == "id_categoria":
-                                categoria = buscar_id(data.categorias, id_relacionado, 2)
-                                print(f"{color_tabla_impar}|{categoria[1]:<21}|{terminar_color}", end="")
+                                categoria = buscar_id(data.categorias, id_relacionado)
+                                print(f"{color_tabla_impar}|{categoria['nombre']:<21}|{terminar_color}", end="")
                             elif i == "id_proveedor":
-                                proveedor = buscar_id(data.proveedores, id_relacionado, 1)
-                                print(f"{color_tabla_impar}|{proveedor[1]:<21}|{terminar_color}", end="")
+                                proveedor = buscar_id(data.proveedores, id_relacionado)
+                                print(f"{color_tabla_impar}|{proveedor['nombre']:<21}|{terminar_color}", end="")
                             elif i == "status":
                                 if fila["status"] == True:
                                     print(f"{color_tabla_impar}|{'Activo':<21}|{terminar_color}", end="")
@@ -76,11 +71,11 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1): #Esta funcion se utili
                         if i == "id_categoria" or i == "id_proveedor" or i == "status":
                             id_relacionado = fila[i]
                             if i == "id_categoria":
-                                categoria = buscar_id(data.categorias, id_relacionado, 2)
-                                print(f"{color_tabla_par}|{categoria[1]:<21}|{terminar_color}", end="")
+                                categoria = buscar_id(data.categorias, id_relacionado)
+                                print(f"{color_tabla_par}|{categoria['nombre']:<21}|{terminar_color}", end="")
                             elif i == "id_proveedor":
-                                proveedor = buscar_id(data.proveedores, id_relacionado, 1)
-                                print(f"{color_tabla_par}|{proveedor[1]:<21}|{terminar_color}", end="")
+                                proveedor = buscar_id(data.proveedores, id_relacionado)
+                                print(f"{color_tabla_par}|{proveedor['nombre']:<21}|{terminar_color}", end="")
                             elif i == "status":
                                 print(f"{color_tabla_par}|{'Activo':<21}|{terminar_color}", end="")
                         else:
@@ -90,11 +85,11 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1): #Esta funcion se utili
                         if i == "id_categoria" or i == "id_proveedor" or i == "status":
                             id_relacionado = fila[i]
                             if i == "id_categoria":
-                                categoria = buscar_id(data.categorias, id_relacionado, 2)
-                                print(f"{color_tabla_impar}|{categoria[1]:<21}|{terminar_color}", end="")
+                                categoria = buscar_id(data.categorias, id_relacionado)
+                                print(f"{color_tabla_impar}|{categoria['nombre']:<21}|{terminar_color}", end="")
                             elif i == "id_proveedor":
-                                proveedor = buscar_id(data.proveedores, id_relacionado, 1)
-                                print(f"{color_tabla_impar}|{proveedor[1]:<21}|{terminar_color}", end="")
+                                proveedor = buscar_id(data.proveedores, id_relacionado)
+                                print(f"{color_tabla_impar}|{proveedor['nombre']:<21}|{terminar_color}", end="")
                             elif i == "status":
                                 print(f"{color_tabla_impar}|{'Activo':<21}|{terminar_color}", end="")
                         else:
@@ -106,37 +101,37 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1): #Esta funcion se utili
             print(f"{negrita}{color_tabla_par}|{i:<25}|", end="")
         print()
         for fila in matriz:
-            if fila[5] == True:
-                if fila[0] % 2 == 0:
-                    for i in fila:
-                        if i is True:
+            if fila["activo"] == True:
+                if fila["id"] % 2 == 0:
+                    for clave, valor in fila.items():
+                        if valor is True:
                             print(f"{color_tabla_par}|{'Activo':<25}|{terminar_color}", end="")
                         else:
-                            print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+                            print(f"{color_tabla_par}|{valor:<25}|{terminar_color}", end="")
                 else:
-                    for i in fila:
-                        if i is True:
+                    for clave, valor in fila.items():
+                        if valor is True:
                             print(f"{color_tabla_impar}|{'Activo':<25}|{terminar_color}", end="")
                         else:
-                            print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
+                            print(f"{color_tabla_impar}|{valor:<25}|{terminar_color}", end="")
                 print()
             elif inactivos == True:
-                if fila[0] % 2 == 0:
-                    for i in fila:
-                        if i is False:
+                if fila["id"] % 2 == 0:
+                    for clave, valor in fila.items():
+                        if valor is False:
                             print(f"{color_tabla_par}|{'Inactivo':<25}|{terminar_color}", end="")
-                        elif i is True:
+                        elif valor is True:
                             print(f"{color_tabla_par}|{'Activo':<25}|{terminar_color}", end="")
                         else:
-                            print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+                            print(f"{color_tabla_par}|{valor:<25}|{terminar_color}", end="")
                 else:
-                    for i in fila:
-                        if i is False:
+                    for clave, valor in fila.items():
+                        if valor is False:
                             print(f"{color_tabla_impar}|{'Inactivo':<25}|{terminar_color}", end="")
-                        elif i is True:
+                        elif valor is True:
                             print(f"{color_tabla_impar}|{'Activo':<25}|{terminar_color}", end="")
                         else:
-                            print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
+                            print(f"{color_tabla_impar}|{valor:<25}|{terminar_color}", end="")
                 print()
         print()
     else:  # Si es stock o categorias
@@ -144,12 +139,12 @@ def mostrar_tabla(matriz, columnas, opcion, inactivos=1): #Esta funcion se utili
             print(f"{negrita}{color_tabla_par}|{i:<25}|", end="")
         print()
         for fila in matriz:
-            if fila[0] % 2 == 0:
-                for i in fila:
-                    print(f"{color_tabla_par}|{i:<25}|{terminar_color}", end="")
+            if fila["id"] % 2 == 0:
+                for clave, valor in fila.items():
+                    print(f"{color_tabla_par}|{valor:<25}|{terminar_color}", end="")
             else:
-                for i in fila:
-                    print(f"{color_tabla_impar}|{i:<25}|{terminar_color}", end="")
+                for clave, valor in fila.items():
+                    print(f"{color_tabla_impar}|{valor:<25}|{terminar_color}", end="")
             print()
         print()
 
@@ -164,7 +159,7 @@ def desactivar_registro(matriz, id_desactivar, opcion): #Esta funcion se utiliza
             print("No se encontró el registro.")
     elif opcion == 1:  # Si es proveedores
         if fila:
-            fila[5] = False
+            fila["activo"] = False
             print("Registro desactivado correctamente.")
         else:
             print("No se encontró el registro.")
@@ -206,41 +201,49 @@ def agregar_registro(matriz, columnas, opcion): #Esta funcion se utiliza para ag
         mostrar_tabla(matriz, columnas, opcion)
         print(f"Producto agregado correctamente.{terminar_color}")
     elif opcion == 1:  # Si es proveedores
-        nuevo_proveedor = [matriz[-1][0] + 1 if matriz else 1]
+        nuevo_proveedor_id = matriz[-1]["id"] + 1 if matriz else 1
         nombre_proveedor = input(f"{color_tabla_par}Ingrese el nombre del proveedor: ")
-        nuevo_proveedor.append(nombre_proveedor)
         venta_minima = int(input("Ingrese la venta mínima: "))
-        nuevo_proveedor.append(venta_minima)
         plazo_entrega = int(input("Ingrese el plazo de entrega (días): "))
-        nuevo_proveedor.append(plazo_entrega)
-        cuit_proveedores = sorted([fila[4] for fila in matriz])
-        while len(cuit_proveedores) != nuevo_proveedor[0]:
+        
+        cuit_proveedores = [fila["cuit"] for fila in matriz]
+        cuit = ""
+        while True:
             cuit = input("Ingrese el CUIT: ")
             patron = re.compile('\d{2}-\d{8}-\d')
             if patron.match(cuit):
                 if cuit in cuit_proveedores:
                     print("El CUIT ya existe. Ingrese un CUIT único.")
                 else:
-                    cuit_proveedores.append(cuit)
-                    nuevo_proveedor.append(cuit)
+                    break
             else:
                 print("El formato de CUIT es incorrecto. Debe ser XX-XXXXXXXX-X.")
-        nuevo_proveedor.append(True)
+
+        nuevo_proveedor = {
+            "id": nuevo_proveedor_id,
+            "nombre": nombre_proveedor,
+            "productos_sum": venta_minima,
+            "tiempo_entrega": plazo_entrega,
+            "cuit": cuit,
+            "activo": True
+        }
 
         matriz.append(nuevo_proveedor)
         mostrar_tabla(matriz, columnas, opcion)
         print(f"Proveedor agregado correctamente.{terminar_color}")
     elif opcion == 2:  # Si es categorias
-        nueva_categoria = [matriz[-1][0] + 1 if matriz else 1]
-        nombres_categorias = []
-        for i in data.categorias:
-            nombres_categorias.append(i[1])
+        nueva_categoria_id = matriz[-1]["id"] + 1 if matriz else 1
+        nombres_categorias = [categoria["nombre"] for categoria in data.categorias]
         conjunto_categorias = set(nombres_categorias)
         nombre_categoria = input(f"{color_tabla_par}Ingrese el nombre de la categoría: ") 
         while nombre_categoria.capitalize() in conjunto_categorias:
             print("La categoría ya existe. Ingrese un nombre único.")
             nombre_categoria = input("Ingrese el nombre de la categoría: ")
-        nueva_categoria.append(nombre_categoria.capitalize())
+        
+        nueva_categoria = {
+            "id": nueva_categoria_id,
+            "nombre": nombre_categoria.capitalize()
+        }
         matriz.append(nueva_categoria)
         mostrar_tabla(matriz, columnas, opcion)
         print(f"Categoría agregada correctamente.{terminar_color}")
@@ -253,9 +256,9 @@ def buscar_proveedor(busqueda): #esta funcion busca un proveedor teniendo en cue
     busqueda = busqueda.upper() #lo pongo en mayuscula asi no hay errores de comparacion
 
     for fila in proveedores:
-        nombre_proveedor = fila[1].upper()
+        nombre_proveedor = fila["nombre"].upper()
         if nombre_proveedor == busqueda:
-            return fila[0]
+            return fila["id"]
     return None
 
 def busqueda_proveedor_parcial(): #Esta funcion busca un proveedor por su nombre segun sus primeras letras
@@ -263,11 +266,11 @@ def busqueda_proveedor_parcial(): #Esta funcion busca un proveedor por su nombre
     busqueda = input(f"{color_tabla_par}Escriba la letra o las primeras 3 letras de los proveedores que desea buscar: ")
     patron = re.compile(busqueda, re.IGNORECASE)
 
-    resultados = [fila for fila in proveedores if patron.search(fila[1])]
-    if resultados != 0:
+    resultados = [fila for fila in proveedores if patron.search(fila["nombre"])]
+    if len(resultados) > 0:
         print(f"Estos son los resultados encontrados para su búsqueda: \n{terminar_color}")
         for fila in resultados:
-            print(f"{color_tabla_par}-Nombre {fila[1]} - Entrega minima: {fila[2]} unidades - Plazo de entrega: {fila[3]} dias{terminar_color}")
+            print(f"{color_tabla_par}-Nombre {fila['nombre']} - Entrega minima: {fila['productos_sum']} unidades - Plazo de entrega: {fila['tiempo_entrega']} dias{terminar_color}")
     else:
         print(f"{color_tabla_par}No se encontraron resultados.{terminar_color}")
 
@@ -281,10 +284,10 @@ def busqueda_productos_parcial(): #Esta funcion busca un producto por su nombre 
     patron = re.compile(busqueda, re.IGNORECASE)
 
     resultados = [fila for fila in productos if patron.search(fila["nombre"])]
-    if resultados != 0:
+    if len(resultados) > 0:
         print(f"Estos son los resultados encontrados para su búsqueda: \n{terminar_color}")
         for fila in resultados:
-            print(f"{color_tabla_par}-Nombre {fila["nombre"]} - Stock: {fila["stock"]} unidades - Precio: {fila["precio"]} pesos{terminar_color}")
+            print(f"{color_tabla_par}-Nombre {fila['nombre']} - Stock: {fila['stock']} unidades - Precio: {fila['precio']} pesos{terminar_color}")
     else:
         print(f"{color_tabla_par}No se encontraron resultados.{terminar_color}")
 
@@ -298,8 +301,8 @@ def modificar_registro(matriz, columnas, opcion): #esta funcion permite modifica
         producto = buscar_id(matriz, id_modificar, opcion)
         if producto:
             print(f"{color_tabla_par}Producto encontrado:{terminar_color}")
-            distribuidor = buscar_id(data.proveedores, producto["id_proveedor"], 1)
-            print(f"{color_tabla_par}El producto es {producto["nombre"]}, del distribuidor {distribuidor[1]}, tiene un stock de {producto["stock"]} unidades y un precio de {producto["precio"]} pesos{terminar_color}")
+            distribuidor = buscar_id(data.proveedores, producto["id_proveedor"])
+            print(f"{color_tabla_par}El producto es {producto['nombre']}, del distribuidor {distribuidor['nombre']}, tiene un stock de {producto['stock']} unidades y un precio de {producto['precio']} pesos{terminar_color}")
             opcion_modificar = int(input(f"{color_tabla_par}Qué desea modificar? 1-Nombre del producto | 2-Nombre del proveedor | 3-Stock | 4-Precio: {terminar_color}"))
             if opcion_modificar == 1:
                 nombre_producto = input(f"{color_tabla_par}Ingrese el nuevo nombre del producto: {terminar_color}")
@@ -313,17 +316,19 @@ def modificar_registro(matriz, columnas, opcion): #esta funcion permite modifica
                     stock = int(input(f"{color_tabla_par}Ingrese la cantidad a ingresar: {terminar_color}"))
                     producto["stock"] += stock
                     movimiento_stock(0, stock, producto["nombre"])  # Registro de movimiento de ingreso
-                    calcular_tiempo = calcular_tiempo_pedido(buscar_id(data.proveedores, producto["id_proveedor"], 1)[3])
+                    proveedor_obj = buscar_id(data.proveedores, producto["id_proveedor"])
+                    calcular_tiempo = calcular_tiempo_pedido(proveedor_obj["tiempo_entrega"])
                     print(f"{color_tabla_par}El producto se pidio el día {calcular_tiempo}{terminar_color}")
                 elif opcion_stock == "2":
                     stock = int(input(f"{color_tabla_par}Ingrese la cantidad a retirar: {terminar_color}"))
                     producto["stock"] -= stock
                     if producto["stock"] < 0:
-                        print(f"{color_tabla_par}No hay suficiente stock. El stock actual es {producto["stock"] + stock}.{terminar_color}")
+                        print(f"{color_tabla_par}No hay suficiente stock. El stock actual es {producto['stock'] + stock}.{terminar_color}")
                         producto["stock"] += stock  # Revertir el cambio
                     elif producto["stock"] <= 30:
-                        print(f"{color_tabla_par} El stock actual esta por debajo del minimo requerido (30 unidades). El stock actual es {producto["stock"]}.{terminar_color}")
-                        recordar_tiempo_envio = calcular_tiempo_entrega(buscar_id(data.proveedores, producto["id_proveedor"], 1)[3])
+                        print(f"{color_tabla_par} El stock actual esta por debajo del minimo requerido (30 unidades). El stock actual es {producto['stock']}.{terminar_color}")
+                        proveedor_obj = buscar_id(data.proveedores, producto["id_proveedor"])
+                        recordar_tiempo_envio = calcular_tiempo_entrega(proveedor_obj["tiempo_entrega"])
                         print(f"{color_tabla_par}Recuerde que pidiendo hoy para re abastecer el stock los productos llegaran recien el dia: {recordar_tiempo_envio}{terminar_color}") 
                         movimiento_stock(1, stock, producto["nombre"]) 
                     else:
@@ -339,20 +344,20 @@ def modificar_registro(matriz, columnas, opcion): #esta funcion permite modifica
         id_modificar = int(input(f"{color_tabla_par}Ingrese el ID del proveedor a modificar: {terminar_color}"))
         proveedor = buscar_id(matriz, id_modificar, opcion)
         if proveedor:
-            print(f"{color_tabla_par}Proveedor encontrado: {proveedor[1]}, con venta minima de {proveedor[2]} y entrega de {proveedor[3]} dias.{terminar_color}")
+            print(f"{color_tabla_par}Proveedor encontrado: {proveedor['nombre']}, con venta minima de {proveedor['productos_sum']} y entrega de {proveedor['tiempo_entrega']} dias.{terminar_color}")
             opcion_modificar = input(f"{color_tabla_par}Qué desea modificar? 1-Nombre del proveedor | 2-Venta minima | 3-Tiempo estimado de entrega | 4-CUIL:{terminar_color}")
             if opcion_modificar == "1":
                 nombre_proveedor = input(f"{color_tabla_par}Ingrese el nuevo nombre del proveedor: {terminar_color}")
-                proveedor[1] = nombre_proveedor
+                proveedor["nombre"] = nombre_proveedor
             elif opcion_modificar == "2":
                 venta_minima = int(input(f"{color_tabla_par}Ingrese la nueva venta mínima: {terminar_color}"))
-                proveedor[2] = venta_minima
+                proveedor["productos_sum"] = venta_minima
             elif opcion_modificar == "3":
                 plazo_entrega = int(input(f"{color_tabla_par}Ingrese el nuevo plazo de entrega (días): {terminar_color}"))
-                proveedor[3] = plazo_entrega
+                proveedor["tiempo_entrega"] = plazo_entrega
             elif opcion_modificar == "4":
                 cambio = 0
-                cuit_proveedores = sorted([fila[4] for fila in matriz])
+                cuit_proveedores = [fila["cuit"] for fila in matriz if fila["id"] != proveedor["id"]]
                 while cambio == 0:
                     cuit = input(f"{color_tabla_par}Ingrese el CUIT: {terminar_color}")
                     patron = re.compile('\d{2}-\d{8}-\d')  
@@ -360,10 +365,9 @@ def modificar_registro(matriz, columnas, opcion): #esta funcion permite modifica
                         if cuit in cuit_proveedores:
                             print(f"{color_tabla_par}El CUIT ya existe. Ingrese un CUIT único.{terminar_color}")
                         else:
-                            cuit_proveedores.append(cuit)
-                            proveedor[4] = cuit
+                            proveedor["cuit"] = cuit
                             print(f"{color_tabla_par}Proveedor modificado correctamente.{terminar_color}")
-                            cambio =+ 1
+                            cambio = 1
                     else:
                         print(f"{color_tabla_par}El formato de CUIT es incorrecto. Debe ser XX-XXXXXXXX-X.{terminar_color}")
                 mostrar_tabla(matriz, columnas, opcion)
@@ -397,8 +401,8 @@ def estadisticas(): #funcion estadistica genera que da cantidad de productos, ca
 
     producto_mas_caro = max(productos, key=lambda x: x["precio"])
     producto_mas_barato = min(productos, key=lambda x: x["precio"])
-    proveedor_mas_productos = max(proveedores, key=lambda x: sum(1 for prod in productos if prod["id_proveedor"] == x[0]))
-    categoria_mas_productos = max(categorias, key=lambda x: sum(1 for prod in productos if prod["id_categoria"] == x[0]))
+    proveedor_mas_productos = max(proveedores, key=lambda x: sum(1 for prod in productos if prod["id_proveedor"] == x["id"]))
+    categoria_mas_productos = max(categorias, key=lambda x: sum(1 for prod in productos if prod["id_categoria"] == x["id"]))
 
     print(f"{negrita}{color_tabla_par}Estadísticas del sistema:{terminar_color}")
     print(f"{color_tabla_par}Total de productos: {total_productos}")
@@ -406,8 +410,8 @@ def estadisticas(): #funcion estadistica genera que da cantidad de productos, ca
     print(f"Total de proveedores: {total_proveedores}")
     print(f"Producto más caro: {producto_mas_caro['nombre']} - Precio: {producto_mas_caro['precio']}")
     print(f"Producto más barato: {producto_mas_barato['nombre']} - Precio: {producto_mas_barato['precio']}")
-    print(f"Proveedor con más productos: {proveedor_mas_productos[1]} - Cantidad de productos: {sum(1 for prod in productos if prod['id_proveedor'] == proveedor_mas_productos[0])}")
-    print(f"Categoría con más productos: {categoria_mas_productos[1]} - Cantidad de productos: {sum(1 for prod in productos if prod['id_categoria'] == categoria_mas_productos[0])}{terminar_color}")
+    print(f"Proveedor con más productos: {proveedor_mas_productos['nombre']} - Cantidad de productos: {sum(1 for prod in productos if prod['id_proveedor'] == proveedor_mas_productos['id'])}")
+    print(f"Categoría con más productos: {categoria_mas_productos['nombre']} - Cantidad de productos: {sum(1 for prod in productos if prod['id_categoria'] == categoria_mas_productos['id'])}{terminar_color}")
 
 def calcular_tiempo_pedido(plazo_dias): #Esta funcion calcula que dia se hizo un pedido mediante que dia aumenta el stock teniendo en cuenta el tiempo de entrega del proveedor
     hoy = datetime.date.today()
