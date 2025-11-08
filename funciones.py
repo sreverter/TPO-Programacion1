@@ -12,124 +12,74 @@ descripcion_columnas_productos = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR"
 descripcion_columnas_proveedores = ["ID", "Nombre", "Venta mínima", "Plazo de entrega(dias)", "CUIT", "Status"]
 
 def buscar_id(matriz, id_buscar, opcion=None):
-    i = 0
-    while i < len(matriz):
-        fila = matriz[i]
-        try:
-            if fila["id"] == id_buscar:
-                return fila
-        except (KeyError, TypeError):
-            pass
-        i += 1
-    return None
+    return next(
+        filter(lambda fila: isinstance(fila, dict) and fila.get("id") == id_buscar, matriz),
+        None
+    )
 
 def mostrar_tabla(matriz, columnas, opcion, inactivos=1):
-    # Cargar datos actualizados cada vez que se muestra la tabla
     categorias = data.cargar_categorias()
     proveedores = data.cargar_proveedores()
-    
-    if opcion == 0:  # Si es productos
-        if not matriz:
-            print("No hay datos para mostrar.")
-            return
-        
-        # Encabezado
+
+    def obtener_nombre_categoria(id_cat):
+        return next((c["nombre"] for c in categorias if c["id"] == id_cat), "N/A")
+
+    def obtener_nombre_proveedor(id_prov):
+        return next((p["nombre"] for p in proveedores if p["id"] == id_prov), "N/A")
+
+    def estado_texto(valor):
+        return "Activo" if valor else "Inactivo"
+
+    if not matriz:
+        print("No hay datos para mostrar.")
+        return
+
+    if opcion == 0:  # Productos
         claves_diccionario = list(matriz[0].keys())
-        for i in claves_diccionario:
-            print(f"{negrita}{color_tabla_par}|{i:<21}|{terminar_color}", end="")
+        for clave in claves_diccionario:
+            print(f"{negrita}{color_tabla_par}|{clave:<21}|{terminar_color}", end="")
         print()
-        
-        # Filas
-        j = 0
-        while j < len(matriz):
-            fila = matriz[j]
-            mostrar_fila = False
-            
-            if inactivos == True:
-                mostrar_fila = True
-            elif fila.get("status") == True:
-                mostrar_fila = True
-            
-            if mostrar_fila:
-                if fila["id"] % 2 == 0:
-                    color = color_tabla_par
-                else:
-                    color = color_tabla_impar
-                
+
+        for fila in matriz:
+            if inactivos or fila.get("status"):
+                color = color_tabla_par if fila["id"] % 2 == 0 else color_tabla_impar
                 for clave in fila:
                     valor = fila[clave]
                     if clave == "id_categoria":
-                        categoria = buscar_id(categorias, valor)
-                        nombre = categoria['nombre'] if categoria else "N/A"
-                        print(f"{color}|{nombre:<21}|{terminar_color}", end="")
+                        print(f"{color}|{obtener_nombre_categoria(valor):<21}|{terminar_color}", end="")
                     elif clave == "id_proveedor":
-                        proveedor = buscar_id(proveedores, valor)
-                        nombre = proveedor['nombre'] if proveedor else "N/A"
-                        print(f"{color}|{nombre:<21}|{terminar_color}", end="")
+                        print(f"{color}|{obtener_nombre_proveedor(valor):<21}|{terminar_color}", end="")
                     elif clave == "status":
-                        estado = "Activo" if valor else "Inactivo"
-                        print(f"{color}|{estado:<21}|{terminar_color}", end="")
+                        print(f"{color}|{estado_texto(valor):<21}|{terminar_color}", end="")
                     else:
                         print(f"{color}|{str(valor):<21}|{terminar_color}", end="")
                 print()
-            j += 1
         print()
-    
-    elif opcion == 1:  # Si es proveedores
-        # Encabezado
-        for i in columnas:
-            print(f"{negrita}{color_tabla_par}|{i:<25}|", end="")
+
+    elif opcion == 1:  # Proveedores
+        for col in columnas:
+            print(f"{negrita}{color_tabla_par}|{col:<25}|", end="")
         print()
-        
-        # Filas
-        k = 0
-        while k < len(matriz):
-            fila = matriz[k]
-            mostrar_fila = False
-            
-            if fila.get("activo") == True:
-                mostrar_fila = True
-            elif inactivos == True:
-                mostrar_fila = True
-            
-            if mostrar_fila:
-                if fila["id"] % 2 == 0:
-                    color = color_tabla_par
-                else:
-                    color = color_tabla_impar
-                
-                for clave in fila:
-                    valor = fila[clave]
-                    if valor is True:
-                        print(f"{color}|{'Activo':<25}|{terminar_color}", end="")
-                    elif valor is False:
-                        print(f"{color}|{'Inactivo':<25}|{terminar_color}", end="")
-                    else:
-                        print(f"{color}|{str(valor):<25}|{terminar_color}", end="")
+
+        for fila in matriz:
+            if fila.get("activo") or inactivos:
+                color = color_tabla_par if fila["id"] % 2 == 0 else color_tabla_impar
+                for valor in fila.values():
+                    texto = "Activo" if valor is True else "Inactivo" if valor is False else str(valor)
+                    print(f"{color}|{texto:<25}|{terminar_color}", end="")
                 print()
-            k += 1
         print()
-    
-    else:  # Si es categorias
-        # Encabezado
-        for i in columnas:
-            print(f"{negrita}{color_tabla_par}|{i:<25}|", end="")
+
+    else:  # Categorías
+        for col in columnas:
+            print(f"{negrita}{color_tabla_par}|{col:<25}|", end="")
         print()
-        
-        # Filas
-        m = 0
-        while m < len(matriz):
-            fila = matriz[m]
-            if fila["id"] % 2 == 0:
-                color = color_tabla_par
-            else:
-                color = color_tabla_impar
-            
-            for clave in fila:
-                valor = fila[clave]
+
+        for fila in matriz:
+            color = color_tabla_par if fila["id"] % 2 == 0 else color_tabla_impar
+            for valor in fila.values():
                 print(f"{color}|{str(valor):<25}|{terminar_color}", end="")
             print()
-            m += 1
         print()
 
 def desactivar_registro(matriz, id_desactivar, opcion):
