@@ -1,0 +1,137 @@
+[
+    {
+        "id": 1,
+        "id_categoria": 1,
+        "nombre": "Leche entera 1L",
+        "id_proveedor": 1,
+        "stock": 450,
+        "precio": 3000,
+        "status": true
+    },
+    {
+        "id": 2,
+        "id_categoria": 2,
+        "nombre": "Pechuga de pollo 1kg",
+        "id_proveedor": 2,
+        "stock": 250,
+        "precio": 4500,
+        "status": false
+    },
+    {
+        "id": 3,
+        "id_categoria": 3,
+        "nombre": "Agua mineral 500ml",
+        "id_proveedor": 3,
+        "stock": 1000,
+        "precio": 1500,
+        "status": true
+    },
+    {
+        "id": 4,
+        "id_categoria": 4,
+        "nombre": "Papas fritas 100g",
+        "id_proveedor": 4,
+        "stock": 350,
+        "precio": 1500,
+        "status": true
+    },
+    {
+        "id": 5,
+        "id_categoria": 5,
+        "nombre": "Manzana roja 1kg",
+        "id_proveedor": 5,
+        "stock": 250,
+        "precio": 2000,
+        "status": true
+    },
+    {
+        "id": 6,
+        "id_categoria": 1,
+        "nombre": "Yogur natural 200g",
+        "id_proveedor": 6,
+        "stock": 300,
+        "precio": 1200,
+        "status": true
+    },
+    {
+        "id": 7,
+        "id_categoria": 2,
+        "nombre": "Carne vacuna 1kg",
+        "id_proveedor": 7,
+        "stock": 180,
+        "precio": 6000,
+        "status": false
+    },
+    {
+        "id": 8,
+        "id_categoria": 3,
+        "nombre": "Jugo de naranja 1L",
+        "id_proveedor": 8,
+        "stock": 400,
+        "precio": 2500,
+        "status": true
+    },
+    {
+        "id": 9,
+        "id_categoria": 4,
+        "nombre": "Galletitas saladas",
+        "id_proveedor": 9,
+        "stock": 500,
+        "precio": 1700,
+        "status": false
+    },
+    {
+        "id": 10,
+        "id_categoria": 5,
+        "nombre": "Banana 1kg",
+        "id_proveedor": 10,
+        "stock": 220,
+        "precio": 1800,
+        "status": true
+    },
+    {
+        "id": 11,
+        "id_categoria": 1,
+        "nombre": "Queso cremoso 500g",
+        "id_proveedor": 1,
+        "stock": 150,
+        "precio": 3500,
+        "status": true
+    },
+    {
+        "id": 12,
+        "id_categoria": 2,
+        "nombre": "Chorizo 500g",
+        "id_proveedor": 2,
+        "stock": 100,
+        "precio": 3200,
+        "status": false
+    },
+    {
+        "id": 13,
+        "id_categoria": 3,
+        "nombre": "Cerveza rubia 1L",
+        "id_proveedor": 3,
+        "stock": 250,
+        "precio": 3500,
+        "status": true
+    },
+    {
+        "id": 14,
+        "id_categoria": 4,
+        "nombre": "Alfajor chocolate",
+        "id_proveedor": 4,
+        "stock": 600,
+        "precio": 800,
+        "status": true
+    },
+    {
+        "id": 15,
+        "id_categoria": 5,
+        "nombre": "Tomate 1kg",
+        "id_proveedor": 5,
+        "stock": 300,
+        "precio": 2200,
+        "status": false
+    }
+]

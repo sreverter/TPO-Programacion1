@@ -1,11 +1,10 @@
-import data
+import archivo as data
 import funciones as scripts
 
 descripcion_columnas = ["ID", "ID_CATEGORIA", "NOMBRE", "ID_PROVEEDOR", "STOCK", "PRECIO", "STATUS"]
-productos = data.productos
 
 def menu_productos():
-
+    productos = data.cargar_productos()
     producto = 0
     titulo_sistema = " Gestión de Productos "
     screen = f'|{titulo_sistema:-^160}|'
@@ -16,7 +15,7 @@ def menu_productos():
     terminar_color = '\033[0m'
     negrita = '\033[1m'
     color_error = '\033[37;41m'
-    ordenar = ""
+    
     while True:
         print(f"{negrita}{color_inicio}{screen}{terminar_color}")
         print(f'{color_inicio}|{funciones:^160}|')
@@ -25,11 +24,11 @@ def menu_productos():
         if opcion == "1":
             ver_inactivos = input(f"{color_inicio}Desea ver los productos inactivos? (s/n): {terminar_color}")
             if ver_inactivos.lower() == "s":
-                ver_inactivos = True
-                scripts.mostrar_tabla(productos, descripcion_columnas, producto, ver_inactivos)
+                scripts.mostrar_tabla(productos, descripcion_columnas, producto, True)
             else:
-                ver_inactivos = False
-                scripts.mostrar_tabla(productos, descripcion_columnas, producto, ver_inactivos)
+                scripts.mostrar_tabla(productos, descripcion_columnas, producto, False)
+            
+            ordenar = ""
             while ordenar != "4":
                 ordenar = input(f"{color_inicio}Desea ordenar la tabla por alguna columna? 1-Nombre de producto | 2-Precio | 3-Stock | 4-No: {terminar_color}")
                 if ordenar == "1":
@@ -40,11 +39,11 @@ def menu_productos():
                     while orden != "1" and orden != "2":
                         orden = input(f"{color_inicio}De menor a mayor (1) o mayor a menor (2): {terminar_color}")
                         if orden == "1":
-                            producto_precio_menor = sorted(productos, key=lambda x: x["precio"])
-                            scripts.mostrar_tabla(producto_precio_menor, descripcion_columnas, producto)
+                            productos_ordenados = sorted(productos, key=lambda x: x["precio"])
+                            scripts.mostrar_tabla(productos_ordenados, descripcion_columnas, producto)
                         elif orden == "2":
-                            productos_precio_mayor = sorted(productos, key=lambda x: x["precio"], reverse=True)
-                            scripts.mostrar_tabla(productos_precio_mayor, descripcion_columnas, producto)
+                            productos_ordenados = sorted(productos, key=lambda x: x["precio"], reverse=True)
+                            scripts.mostrar_tabla(productos_ordenados, descripcion_columnas, producto)
                         else:
                             print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
                 elif ordenar == "3":
@@ -58,24 +57,30 @@ def menu_productos():
         elif opcion == "2":
             print(f"{color_inicio}Desea hacer una busqueda de un solo producto por ID o una busqueda por las primeras letras?{terminar_color}")
             opcion_busqueda = input(f"{color_inicio}Ingrese 1 para busqueda por ID o 2 para busqueda por letras: {terminar_color}")
-            if opcion_busqueda.isdigit() == False:
-                print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
-            elif opcion_busqueda == "1":
+            if opcion_busqueda == "1":
                 id_buscar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
                 resultado_busqueda_id = scripts.buscar_id(productos, id_buscar, producto)
-                print(f"{color_inicio}El producto de ID {id_buscar} es: {resultado_busqueda_id["nombre"]} , este tiene un stock de {resultado_busqueda_id["stock"]} unidades y un precio de {resultado_busqueda_id["precio"]} pesos.{terminar_color}")
+                if resultado_busqueda_id:
+                    print(f"{color_inicio}El producto de ID {id_buscar} es: {resultado_busqueda_id['nombre']}, este tiene un stock de {resultado_busqueda_id['stock']} unidades y un precio de {resultado_busqueda_id['precio']} pesos.{terminar_color}")
+                else:
+                    print(f"{color_inicio}Producto no encontrado.{terminar_color}")
             elif opcion_busqueda == "2":
-                resultado_busqueda_id = scripts.busqueda_productos_parcial()
+                scripts.busqueda_productos_parcial()
+            else:
+                print(f"{color_error}Opción inválida. Intente nuevamente.{terminar_color}")
 
         elif opcion == "3":
             scripts.agregar_registro(productos, descripcion_columnas, producto)
+            data.guardar_productos(productos)
 
         elif opcion == "4":
             scripts.modificar_registro(productos, descripcion_columnas, producto)
+            data.guardar_productos(productos)
 
         elif opcion == "5":
             id_eliminar = int(input(f"{color_inicio}Ingrese ID: {terminar_color}"))
             scripts.desactivar_registro(productos, id_eliminar, producto)
+            data.guardar_productos(productos)
 
         elif opcion == "6":
             scripts.top_productos_vendidos()

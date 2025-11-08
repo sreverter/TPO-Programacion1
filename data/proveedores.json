@@ -1,0 +1,90 @@
+[
+    {
+        "id": 1,
+        "nombre": "Distribuidora Sur",
+        "productos_sum": 100,
+        "tiempo_entrega": 7,
+        "cuit": "20-12345678-3",
+        "activo": true
+    },
+    {
+        "id": 2,
+        "nombre": "Comercial Norte",
+        "productos_sum": 50,
+        "tiempo_entrega": 5,
+        "cuit": "23-23456789-1",
+        "activo": true
+    },
+    {
+        "id": 3,
+        "nombre": "Mayorista Express",
+        "productos_sum": 200,
+        "tiempo_entrega": 10,
+        "cuit": "27-34567890-4",
+        "activo": false
+    },
+    {
+        "id": 4,
+        "nombre": "Central Proveeduría",
+        "productos_sum": 150,
+        "tiempo_entrega": 12,
+        "cuit": "20-45678901-2",
+        "activo": true
+    },
+    {
+        "id": 5,
+        "nombre": "Global Import",
+        "productos_sum": 80,
+        "tiempo_entrega": 15,
+        "cuit": "23-56789012-7",
+        "activo": true
+    },
+    {
+        "id": 6,
+        "nombre": "Mercado Federal",
+        "productos_sum": 120,
+        "tiempo_entrega": 8,
+        "cuit": "27-67890123-5",
+        "activo": true
+    },
+    {
+        "id": 7,
+        "nombre": "Alimentos del Centro",
+        "productos_sum": 90,
+        "tiempo_entrega": 6,
+        "cuit": "20-78901234-8",
+        "activo": true
+    },
+    {
+        "id": 8,
+        "nombre": "Distribuidora Andina",
+        "productos_sum": 300,
+        "tiempo_entrega": 20,
+        "cuit": "23-89012345-6",
+        "activo": true
+    },
+    {
+        "id": 9,
+        "nombre": "Proveeduría Pampeana",
+        "productos_sum": 110,
+        "tiempo_entrega": 9,
+        "cuit": "27-90123456-1",
+        "activo": false
+    },
+    {
+        "id": 10,
+        "nombre": "Comercial Atlántico",
+        "productos_sum": 70,
+        "tiempo_entrega": 4,
+        "cuit": "20-11223344-0",
+        "activo": false
+    },
+    {
+        "id": 11,
+        "nombre": "jorge",
+        "productos_sum": 30,
+        "tiempo_entrega": 30,
+        "cuit": "20-12345678-6",
+        "activo": true
+    }
+]

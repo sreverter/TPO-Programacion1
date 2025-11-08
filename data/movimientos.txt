@@ -1,0 +1,23 @@
+1;ingreso;Leche entera 1L;100;01-01-25
+2;egreso;Pechuga de pollo 1kg;50;02-01-25
+3;ingreso;Agua mineral 500ml;200;03-01-25
+4;egreso;Papas fritas 100g;150;04-01-25
+5;ingreso;Manzana roja 1kg;80;05-01-25
+6;ingreso;Yogur natural 200g;120;06-01-25
+7;egreso;Carne vacuna 1kg;60;07-01-25
+8;ingreso;Jugo de naranja 1L;180;08-01-25
+9;egreso;Galletitas saladas;90;09-01-25
+10;ingreso;Banana 1kg;70;10-01-25
+11;egreso;Queso cremoso 500g;40;11-01-25
+12;ingreso;Chorizo 500g;55;12-01-25
+13;egreso;Cerveza rubia 1L;100;13-01-25
+14;ingreso;Alfajor chocolate;200;14-01-25
+15;egreso;Tomate 1kg;80;15-01-25
+16;ingreso;Leche entera 1L;150;16-01-25
+17;egreso;Pechuga de pollo 1kg;30;17-01-25
+18;ingreso;Agua mineral 500ml;250;18-01-25
+19;egreso;Papas fritas 100g;100;19-01-25
+20;ingreso;Manzana roja 1kg;60;20-01-25
+21;Ingreso;Leche entera 1L;50;08-11-25
+22;Ingreso;Pechuga de pollo 1kg;50;08-11-25
+23;Egreso;Leche entera 1L;50;08-11-25

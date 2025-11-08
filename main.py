@@ -1,11 +1,9 @@
-import funciones as scripts
-import data as data
+import funciones as scripts  # ← Corregido el nombre
+import archivo as data
 
 import productos
 import proveedores
 import categorias
-
-#menu principal del CRUD en este se puede ir a las entidades, ver estadisticas generales y salir del programa
 
 def main():
     titulo_sistema = " Sistema de Inventario "
@@ -18,18 +16,18 @@ def main():
     negrita = '\033[1m'
     terminar_color = '\033[0m'
     color_error = '\033[37;41m'
+    
     while True:
         print(f'{negrita}{color_inicio}{screen}{terminar_color}')
         print(f'{color_inicio}|{funciones:^160}|')
         opcion = input(f'|{texto_opcion:<160}|{terminar_color}\n')
+        
         if opcion == "1":
             productos.menu_productos()
         elif opcion == "2":
             proveedores.menu_proveedores()
         elif opcion == "3":
-            categorias.menu_categorias() #aca podriamos agregar una nueva categoria de productos
-#        elif opcion == "":
-#        print("Sistema de usuarios aún no implementado.") #aca podriamos administrar a los usuarios (no se si es necesario, depende como lo implementemos)
+            categorias.menu_categorias()
         elif opcion == "4":
             scripts.estadisticas()
         elif opcion == "5":

@@ -1,0 +1,7 @@
+[
+    {"id": 1, "nombre": "Lacteos"},
+    {"id": 2, "nombre": "Carnes"},
+    {"id": 3, "nombre": "Bebidas"},
+    {"id": 4, "nombre": "Snacks"},
+    {"id": 5, "nombre": "Frutas y verduras"}
+]
